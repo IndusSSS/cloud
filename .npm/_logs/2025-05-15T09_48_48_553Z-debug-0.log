@@ -1,0 +1,1031 @@
+0 verbose cli /usr/bin/node /usr/bin/npm
+1 info using npm@9.2.0
+2 info using node@v18.19.1
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 3ms
+5 timing config:load:file:/usr/share/nodejs/npm/npmrc Completed in 3ms
+6 timing config:load:builtin Completed in 4ms
+7 timing config:load:cli Completed in 2ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/home/admin/dashboard/admin-dashboard/.npmrc Completed in 0ms
+10 timing config:load:project Completed in 2ms
+11 timing config:load:file:/home/admin/.npmrc Completed in 0ms
+12 timing config:load:user Completed in 1ms
+13 timing config:load:file:/etc/npmrc Completed in 0ms
+14 timing config:load:global Completed in 0ms
+15 timing config:load:setEnvs Completed in 1ms
+16 timing config:load Completed in 13ms
+17 timing npm:load:configload Completed in 14ms
+18 timing npm:load:mkdirpcache Completed in 0ms
+19 timing npm:load:mkdirplogs Completed in 0ms
+20 verbose title npm ci
+21 verbose argv "ci"
+22 timing npm:load:setTitle Completed in 1ms
+23 timing config:load:flatten Completed in 4ms
+24 timing npm:load:display Completed in 5ms
+25 verbose logfile logs-max:10 dir:/home/admin/.npm/_logs/2025-05-15T09_48_48_553Z-
+26 verbose logfile /home/admin/.npm/_logs/2025-05-15T09_48_48_553Z-debug-0.log
+27 timing npm:load:logFile Completed in 7ms
+28 timing npm:load:timers Completed in 1ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 29ms
+31 silly logfile start cleaning logs, removing 1 files
+32 timing config:load:flatten Completed in 0ms
+33 timing arborist:ctor Completed in 1ms
+34 silly logfile done cleaning log files
+35 timing idealTree:init Completed in 2ms
+36 timing idealTree:userRequests Completed in 1ms
+37 silly idealTree buildDeps
+38 timing idealTree:#root Completed in 0ms
+39 timing idealTree:node_modules/@tailwindcss/oxide-wasm32-wasi Completed in 0ms
+40 timing idealTree:buildDeps Completed in 2ms
+41 timing idealTree:fixDepFlags Completed in 0ms
+42 timing idealTree Completed in 13ms
+43 timing npm-ci:rm Completed in 228ms
+44 timing reify:loadTrees Completed in 4ms
+45 timing reify:diffTrees Completed in 9ms
+46 silly reify moves {}
+47 timing reify:retireShallow Completed in 2ms
+48 timing reify:createSparse Completed in 20ms
+49 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-wasm32-wasi
+50 silly reify mark deleted [
+50 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-wasm32-wasi'
+50 silly reify ]
+51 timing reifyNode:node_modules/@tailwindcss/oxide-wasm32-wasi Completed in 2ms
+52 timing arborist:ctor Completed in 0ms
+53 timing reify:diffTrees Completed in 1ms
+54 timing reify:loadBundles Completed in 8ms
+55 silly audit bulk request {
+55 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+55 silly audit   '@ampproject/remapping': [ '2.3.0' ],
+55 silly audit   '@antfu/utils': [ '0.7.10' ],
+55 silly audit   '@babel/code-frame': [ '7.27.1' ],
+55 silly audit   '@babel/compat-data': [ '7.27.2' ],
+55 silly audit   '@babel/core': [ '7.27.1' ],
+55 silly audit   '@babel/generator': [ '7.27.1' ],
+55 silly audit   '@babel/helper-annotate-as-pure': [ '7.27.1' ],
+55 silly audit   '@babel/helper-compilation-targets': [ '7.27.2' ],
+55 silly audit   '@babel/helper-create-class-features-plugin': [ '7.27.1' ],
+55 silly audit   '@babel/helper-member-expression-to-functions': [ '7.27.1' ],
+55 silly audit   '@babel/helper-module-imports': [ '7.27.1' ],
+55 silly audit   '@babel/helper-module-transforms': [ '7.27.1' ],
+55 silly audit   '@babel/helper-optimise-call-expression': [ '7.27.1' ],
+55 silly audit   '@babel/helper-plugin-utils': [ '7.27.1' ],
+55 silly audit   '@babel/helper-replace-supers': [ '7.27.1' ],
+55 silly audit   '@babel/helper-skip-transparent-expression-wrappers': [ '7.27.1' ],
+55 silly audit   '@babel/helper-string-parser': [ '7.27.1' ],
+55 silly audit   '@babel/helper-validator-identifier': [ '7.27.1' ],
+55 silly audit   '@babel/helper-validator-option': [ '7.27.1' ],
+55 silly audit   '@babel/helpers': [ '7.27.1' ],
+55 silly audit   '@babel/parser': [ '7.27.2' ],
+55 silly audit   '@babel/plugin-proposal-decorators': [ '7.27.1' ],
+55 silly audit   '@babel/plugin-syntax-decorators': [ '7.27.1' ],
+55 silly audit   '@babel/plugin-syntax-import-attributes': [ '7.27.1' ],
+55 silly audit   '@babel/plugin-syntax-import-meta': [ '7.10.4' ],
+55 silly audit   '@babel/plugin-syntax-jsx': [ '7.27.1' ],
+55 silly audit   '@babel/plugin-syntax-typescript': [ '7.27.1' ],
+55 silly audit   '@babel/plugin-transform-typescript': [ '7.27.1' ],
+55 silly audit   '@babel/template': [ '7.27.2' ],
+55 silly audit   '@babel/traverse': [ '7.27.1' ],
+55 silly audit   '@babel/types': [ '7.27.1' ],
+55 silly audit   '@esbuild/aix-ppc64': [ '0.25.4' ],
+55 silly audit   '@esbuild/android-arm': [ '0.25.4' ],
+55 silly audit   '@esbuild/android-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/android-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/darwin-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/darwin-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/freebsd-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/freebsd-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-arm': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-ia32': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-loong64': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-mips64el': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-ppc64': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-riscv64': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-s390x': [ '0.25.4' ],
+55 silly audit   '@esbuild/linux-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/netbsd-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/netbsd-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/openbsd-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/openbsd-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/sunos-x64': [ '0.25.4' ],
+55 silly audit   '@esbuild/win32-arm64': [ '0.25.4' ],
+55 silly audit   '@esbuild/win32-ia32': [ '0.25.4' ],
+55 silly audit   '@esbuild/win32-x64': [ '0.25.4' ],
+55 silly audit   '@isaacs/fs-minipass': [ '4.0.1' ],
+55 silly audit   '@jridgewell/gen-mapping': [ '0.3.8' ],
+55 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+55 silly audit   '@jridgewell/set-array': [ '1.2.1' ],
+55 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.0' ],
+55 silly audit   '@jridgewell/trace-mapping': [ '0.3.25' ],
+55 silly audit   '@polka/url': [ '1.0.0-next.29' ],
+55 silly audit   '@rollup/pluginutils': [ '5.1.4' ],
+55 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-android-arm64': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-darwin-arm64': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-darwin-x64': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-freebsd-x64': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-loongarch64-gnu': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-powerpc64le-gnu': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.40.2' ],
+55 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.40.2' ],
+55 silly audit   '@sec-ant/readable-stream': [ '0.4.1' ],
+55 silly audit   '@sindresorhus/merge-streams': [ '4.0.0' ],
+55 silly audit   '@tailwindcss/node': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.1.6' ],
+55 silly audit   '@tailwindcss/postcss': [ '4.1.6' ],
+55 silly audit   '@types/estree': [ '1.0.7' ],
+55 silly audit   '@vitejs/plugin-vue': [ '5.2.4' ],
+55 silly audit   '@vue/babel-helper-vue-transform-on': [ '1.4.0' ],
+55 silly audit   '@vue/babel-plugin-jsx': [ '1.4.0' ],
+55 silly audit   '@vue/babel-plugin-resolve-type': [ '1.4.0' ],
+55 silly audit   '@vue/compiler-core': [ '3.5.14' ],
+55 silly audit   '@vue/compiler-dom': [ '3.5.14' ],
+55 silly audit   '@vue/compiler-sfc': [ '3.5.14' ],
+55 silly audit   '@vue/compiler-ssr': [ '3.5.14' ],
+55 silly audit   '@vue/devtools-core': [ '7.7.6' ],
+55 silly audit   nanoid: [ '5.1.5', '3.3.11' ],
+55 silly audit   '@vue/devtools-kit': [ '7.7.6' ],
+55 silly audit   '@vue/devtools-shared': [ '7.7.6' ],
+55 silly audit   '@vue/reactivity': [ '3.5.14' ],
+55 silly audit   '@vue/runtime-core': [ '3.5.14' ],
+55 silly audit   '@vue/runtime-dom': [ '3.5.14' ],
+55 silly audit   '@vue/server-renderer': [ '3.5.14' ],
+55 silly audit   '@vue/shared': [ '3.5.14' ],
+55 silly audit   autoprefixer: [ '10.4.21' ],
+55 silly audit   birpc: [ '2.3.0' ],
+55 silly audit   browserslist: [ '4.24.5' ],
+55 silly audit   'bundle-name': [ '4.1.0' ],
+55 silly audit   'caniuse-lite': [ '1.0.30001718' ],
+55 silly audit   chownr: [ '3.0.0' ],
+55 silly audit   'convert-source-map': [ '2.0.0' ],
+55 silly audit   'copy-anything': [ '3.0.5' ],
+55 silly audit   'cross-spawn': [ '7.0.6' ],
+55 silly audit   csstype: [ '3.1.3' ],
+55 silly audit   debug: [ '4.4.1' ],
+55 silly audit   'default-browser': [ '5.2.1' ],
+55 silly audit   'default-browser-id': [ '5.0.0' ],
+55 silly audit   'define-lazy-prop': [ '3.0.0' ],
+55 silly audit   'detect-libc': [ '2.0.4' ],
+55 silly audit   'electron-to-chromium': [ '1.5.154' ],
+55 silly audit   'enhanced-resolve': [ '5.18.1' ],
+55 silly audit   entities: [ '4.5.0' ],
+55 silly audit   'error-stack-parser-es': [ '0.1.5' ],
+55 silly audit   esbuild: [ '0.25.4' ],
+55 silly audit   escalade: [ '3.2.0' ],
+55 silly audit   'estree-walker': [ '2.0.2' ],
+55 silly audit   execa: [ '9.5.3' ],
+55 silly audit   fdir: [ '6.4.4' ],
+55 silly audit   figures: [ '6.1.0' ],
+55 silly audit   'fraction.js': [ '4.3.7' ],
+55 silly audit   'fs-extra': [ '11.3.0' ],
+55 silly audit   fsevents: [ '2.3.3' ],
+55 silly audit   gensync: [ '1.0.0-beta.2' ],
+55 silly audit   'get-stream': [ '9.0.1' ],
+55 silly audit   globals: [ '11.12.0' ],
+55 silly audit   'graceful-fs': [ '4.2.11' ],
+55 silly audit   hookable: [ '5.5.3' ],
+55 silly audit   'human-signals': [ '8.0.1' ],
+55 silly audit   'is-docker': [ '3.0.0' ],
+55 silly audit   'is-inside-container': [ '1.0.0' ],
+55 silly audit   'is-plain-obj': [ '4.1.0' ],
+55 silly audit   'is-stream': [ '4.0.1' ],
+55 silly audit   'is-unicode-supported': [ '2.1.0' ],
+55 silly audit   'is-what': [ '4.1.16' ],
+55 silly audit   'is-wsl': [ '3.1.0' ],
+55 silly audit   isexe: [ '2.0.0' ],
+55 silly audit   jiti: [ '2.4.2' ],
+55 silly audit   'js-tokens': [ '4.0.0' ],
+55 silly audit   jsesc: [ '3.1.0' ],
+55 silly audit   json5: [ '2.2.3' ],
+55 silly audit   jsonfile: [ '6.1.0' ],
+55 silly audit   kolorist: [ '1.8.0' ],
+55 silly audit   lightningcss: [ '1.29.2' ],
+55 silly audit   'lightningcss-darwin-arm64': [ '1.29.2' ],
+55 silly audit   'lightningcss-darwin-x64': [ '1.29.2' ],
+55 silly audit   'lightningcss-freebsd-x64': [ '1.29.2' ],
+55 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.29.2' ],
+55 silly audit   'lightningcss-linux-arm64-gnu': [ '1.29.2' ],
+55 silly audit   'lightningcss-linux-arm64-musl': [ '1.29.2' ],
+55 silly audit   'lightningcss-linux-x64-gnu': [ '1.29.2' ],
+55 silly audit   'lightningcss-linux-x64-musl': [ '1.29.2' ],
+55 silly audit   'lightningcss-win32-arm64-msvc': [ '1.29.2' ],
+55 silly audit   'lightningcss-win32-x64-msvc': [ '1.29.2' ],
+55 silly audit   'lru-cache': [ '5.1.1' ],
+55 silly audit   'magic-string': [ '0.30.17' ],
+55 silly audit   minipass: [ '7.1.2' ],
+55 silly audit   minizlib: [ '3.0.2' ],
+55 silly audit   mitt: [ '3.0.1' ],
+55 silly audit   mkdirp: [ '3.0.1' ],
+55 silly audit   mrmime: [ '2.0.1' ],
+55 silly audit   ms: [ '2.1.3' ],
+55 silly audit   'node-releases': [ '2.0.19' ],
+55 silly audit   'normalize-range': [ '0.1.2' ],
+55 silly audit   'npm-run-path': [ '6.0.0' ],
+55 silly audit   'path-key': [ '4.0.0', '3.1.1' ],
+55 silly audit   open: [ '10.1.2' ],
+55 silly audit   'parse-ms': [ '4.0.0' ],
+55 silly audit   pathe: [ '2.0.3' ],
+55 silly audit   'perfect-debounce': [ '1.0.0' ],
+55 silly audit   picocolors: [ '1.1.1' ],
+55 silly audit   picomatch: [ '4.0.2' ],
+55 silly audit   postcss: [ '8.5.3' ],
+55 silly audit   'postcss-value-parser': [ '4.2.0' ],
+55 silly audit   'pretty-ms': [ '9.2.0' ],
+55 silly audit   rfdc: [ '1.4.1' ],
+55 silly audit   rollup: [ '4.40.2' ],
+55 silly audit   'run-applescript': [ '7.0.0' ],
+55 silly audit   semver: [ '6.3.1' ],
+55 silly audit   'shebang-command': [ '2.0.0' ],
+55 silly audit   'shebang-regex': [ '3.0.0' ],
+55 silly audit   'signal-exit': [ '4.1.0' ],
+55 silly audit   sirv: [ '3.0.1' ],
+55 silly audit   'source-map-js': [ '1.2.1' ],
+55 silly audit   speakingurl: [ '14.0.1' ],
+55 silly audit   'strip-final-newline': [ '4.0.0' ],
+55 silly audit   superjson: [ '2.2.2' ],
+55 silly audit   tailwindcss: [ '4.1.6' ],
+55 silly audit   tapable: [ '2.2.1' ],
+55 silly audit   tar: [ '7.4.3' ],
+55 silly audit   yallist: [ '5.0.0', '3.1.1' ],
+55 silly audit   tinyglobby: [ '0.2.13' ],
+55 silly audit   totalist: [ '3.0.1' ],
+55 silly audit   'unicorn-magic': [ '0.3.0' ],
+55 silly audit   universalify: [ '2.0.1' ],
+55 silly audit   'update-browserslist-db': [ '1.1.3' ],
+55 silly audit   vite: [ '6.3.5' ],
+55 silly audit   'vite-hot-client': [ '2.0.4' ],
+55 silly audit   'vite-plugin-inspect': [ '0.8.9' ],
+55 silly audit   'vite-plugin-vue-devtools': [ '7.7.6' ],
+55 silly audit   'vite-plugin-vue-inspector': [ '5.3.1' ],
+55 silly audit   vue: [ '3.5.14' ],
+55 silly audit   which: [ '2.0.2' ],
+55 silly audit   yoctocolors: [ '2.1.1' ],
+55 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.1.6' ]
+55 silly audit }
+56 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-win32-x64-msvc
+57 silly reify mark deleted [
+57 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-win32-x64-msvc'
+57 silly reify ]
+58 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-win32-arm64-msvc
+59 silly reify mark deleted [
+59 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-win32-arm64-msvc'
+59 silly reify ]
+60 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-linux-arm64-musl
+61 silly reify mark deleted [
+61 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-linux-arm64-musl'
+61 silly reify ]
+62 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-linux-arm64-gnu
+63 silly reify mark deleted [
+63 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-linux-arm64-gnu'
+63 silly reify ]
+64 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-linux-arm-gnueabihf
+65 silly reify mark deleted [
+65 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-linux-arm-gnueabihf'
+65 silly reify ]
+66 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-freebsd-x64
+67 silly reify mark deleted [
+67 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-freebsd-x64'
+67 silly reify ]
+68 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-darwin-x64
+69 silly reify mark deleted [
+69 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-darwin-x64'
+69 silly reify ]
+70 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/lightningcss-darwin-arm64
+71 silly reify mark deleted [
+71 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/lightningcss-darwin-arm64'
+71 silly reify ]
+72 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/fsevents
+73 silly reify mark deleted [ '/home/admin/dashboard/admin-dashboard/node_modules/fsevents' ]
+74 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-win32-x64-msvc
+75 silly reify mark deleted [
+75 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-win32-x64-msvc'
+75 silly reify ]
+76 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-win32-arm64-msvc
+77 silly reify mark deleted [
+77 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-win32-arm64-msvc'
+77 silly reify ]
+78 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-linux-arm64-musl
+79 silly reify mark deleted [
+79 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-linux-arm64-musl'
+79 silly reify ]
+80 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-linux-arm64-gnu
+81 silly reify mark deleted [
+81 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-linux-arm64-gnu'
+81 silly reify ]
+82 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf
+83 silly reify mark deleted [
+83 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf'
+83 silly reify ]
+84 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-freebsd-x64
+85 silly reify mark deleted [
+85 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-freebsd-x64'
+85 silly reify ]
+86 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-darwin-x64
+87 silly reify mark deleted [
+87 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-darwin-x64'
+87 silly reify ]
+88 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-darwin-arm64
+89 silly reify mark deleted [
+89 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-darwin-arm64'
+89 silly reify ]
+90 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-android-arm64
+91 silly reify mark deleted [
+91 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@tailwindcss/oxide-android-arm64'
+91 silly reify ]
+92 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-win32-x64-msvc
+93 silly reify mark deleted [
+93 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-win32-x64-msvc'
+93 silly reify ]
+94 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-win32-ia32-msvc
+95 silly reify mark deleted [
+95 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-win32-ia32-msvc'
+95 silly reify ]
+96 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-win32-arm64-msvc
+97 silly reify mark deleted [
+97 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-win32-arm64-msvc'
+97 silly reify ]
+98 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-s390x-gnu
+99 silly reify mark deleted [
+99 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-s390x-gnu'
+99 silly reify ]
+100 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-riscv64-musl
+101 silly reify mark deleted [
+101 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-riscv64-musl'
+101 silly reify ]
+102 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-riscv64-gnu
+103 silly reify mark deleted [
+103 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-riscv64-gnu'
+103 silly reify ]
+104 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-powerpc64le-gnu
+105 silly reify mark deleted [
+105 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-powerpc64le-gnu'
+105 silly reify ]
+106 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-loongarch64-gnu
+107 silly reify mark deleted [
+107 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-loongarch64-gnu'
+107 silly reify ]
+108 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm64-musl
+109 silly reify mark deleted [
+109 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm64-musl'
+109 silly reify ]
+110 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm64-gnu
+111 silly reify mark deleted [
+111 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm64-gnu'
+111 silly reify ]
+112 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm-musleabihf
+113 silly reify mark deleted [
+113 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm-musleabihf'
+113 silly reify ]
+114 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm-gnueabihf
+115 silly reify mark deleted [
+115 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-linux-arm-gnueabihf'
+115 silly reify ]
+116 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-freebsd-x64
+117 silly reify mark deleted [
+117 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-freebsd-x64'
+117 silly reify ]
+118 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-freebsd-arm64
+119 silly reify mark deleted [
+119 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-freebsd-arm64'
+119 silly reify ]
+120 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-darwin-x64
+121 silly reify mark deleted [
+121 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-darwin-x64'
+121 silly reify ]
+122 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-darwin-arm64
+123 silly reify mark deleted [
+123 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-darwin-arm64'
+123 silly reify ]
+124 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-android-arm64
+125 silly reify mark deleted [
+125 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-android-arm64'
+125 silly reify ]
+126 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-android-arm-eabi
+127 silly reify mark deleted [
+127 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@rollup/rollup-android-arm-eabi'
+127 silly reify ]
+128 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/win32-x64
+129 silly reify mark deleted [
+129 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/win32-x64'
+129 silly reify ]
+130 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/win32-ia32
+131 silly reify mark deleted [
+131 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/win32-ia32'
+131 silly reify ]
+132 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/win32-arm64
+133 silly reify mark deleted [
+133 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/win32-arm64'
+133 silly reify ]
+134 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/sunos-x64
+135 silly reify mark deleted [
+135 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/sunos-x64'
+135 silly reify ]
+136 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/openbsd-x64
+137 silly reify mark deleted [
+137 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/openbsd-x64'
+137 silly reify ]
+138 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/openbsd-arm64
+139 silly reify mark deleted [
+139 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/openbsd-arm64'
+139 silly reify ]
+140 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/netbsd-x64
+141 silly reify mark deleted [
+141 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/netbsd-x64'
+141 silly reify ]
+142 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/netbsd-arm64
+143 silly reify mark deleted [
+143 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/netbsd-arm64'
+143 silly reify ]
+144 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-s390x
+145 silly reify mark deleted [
+145 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-s390x'
+145 silly reify ]
+146 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-riscv64
+147 silly reify mark deleted [
+147 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-riscv64'
+147 silly reify ]
+148 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-ppc64
+149 silly reify mark deleted [
+149 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-ppc64'
+149 silly reify ]
+150 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-mips64el
+151 silly reify mark deleted [
+151 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-mips64el'
+151 silly reify ]
+152 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-loong64
+153 silly reify mark deleted [
+153 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-loong64'
+153 silly reify ]
+154 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-ia32
+155 silly reify mark deleted [
+155 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-ia32'
+155 silly reify ]
+156 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-arm64
+157 silly reify mark deleted [
+157 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-arm64'
+157 silly reify ]
+158 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-arm
+159 silly reify mark deleted [
+159 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/linux-arm'
+159 silly reify ]
+160 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/freebsd-x64
+161 silly reify mark deleted [
+161 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/freebsd-x64'
+161 silly reify ]
+162 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/freebsd-arm64
+163 silly reify mark deleted [
+163 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/freebsd-arm64'
+163 silly reify ]
+164 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/darwin-x64
+165 silly reify mark deleted [
+165 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/darwin-x64'
+165 silly reify ]
+166 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/darwin-arm64
+167 silly reify mark deleted [
+167 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/darwin-arm64'
+167 silly reify ]
+168 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/android-x64
+169 silly reify mark deleted [
+169 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/android-x64'
+169 silly reify ]
+170 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/android-arm64
+171 silly reify mark deleted [
+171 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/android-arm64'
+171 silly reify ]
+172 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/android-arm
+173 silly reify mark deleted [
+173 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/android-arm'
+173 silly reify ]
+174 verbose reify failed optional dependency /home/admin/dashboard/admin-dashboard/node_modules/@esbuild/aix-ppc64
+175 silly reify mark deleted [
+175 silly reify   '/home/admin/dashboard/admin-dashboard/node_modules/@esbuild/aix-ppc64'
+175 silly reify ]
+176 timing reifyNode:node_modules/lightningcss-win32-x64-msvc Completed in 98ms
+177 timing reifyNode:node_modules/lightningcss-win32-arm64-msvc Completed in 98ms
+178 timing reifyNode:node_modules/lightningcss-linux-arm64-musl Completed in 98ms
+179 timing reifyNode:node_modules/lightningcss-linux-arm64-gnu Completed in 98ms
+180 timing reifyNode:node_modules/lightningcss-linux-arm-gnueabihf Completed in 98ms
+181 timing reifyNode:node_modules/lightningcss-freebsd-x64 Completed in 99ms
+182 timing reifyNode:node_modules/lightningcss-darwin-x64 Completed in 99ms
+183 timing reifyNode:node_modules/lightningcss-darwin-arm64 Completed in 99ms
+184 timing reifyNode:node_modules/fsevents Completed in 97ms
+185 timing reifyNode:node_modules/@tailwindcss/oxide-win32-x64-msvc Completed in 92ms
+186 timing reifyNode:node_modules/@tailwindcss/oxide-win32-arm64-msvc Completed in 92ms
+187 timing reifyNode:node_modules/@tailwindcss/oxide-linux-arm64-musl Completed in 92ms
+188 timing reifyNode:node_modules/@tailwindcss/oxide-linux-arm64-gnu Completed in 92ms
+189 timing reifyNode:node_modules/@tailwindcss/oxide-linux-arm-gnueabihf Completed in 92ms
+190 timing reifyNode:node_modules/@tailwindcss/oxide-freebsd-x64 Completed in 92ms
+191 timing reifyNode:node_modules/@tailwindcss/oxide-darwin-x64 Completed in 93ms
+192 timing reifyNode:node_modules/@tailwindcss/oxide-darwin-arm64 Completed in 93ms
+193 timing reifyNode:node_modules/@tailwindcss/oxide-android-arm64 Completed in 93ms
+194 timing reifyNode:node_modules/@rollup/rollup-win32-x64-msvc Completed in 92ms
+195 timing reifyNode:node_modules/@rollup/rollup-win32-ia32-msvc Completed in 92ms
+196 timing reifyNode:node_modules/@rollup/rollup-win32-arm64-msvc Completed in 92ms
+197 timing reifyNode:node_modules/@rollup/rollup-linux-s390x-gnu Completed in 92ms
+198 timing reifyNode:node_modules/@rollup/rollup-linux-riscv64-musl Completed in 92ms
+199 timing reifyNode:node_modules/@rollup/rollup-linux-riscv64-gnu Completed in 92ms
+200 timing reifyNode:node_modules/@rollup/rollup-linux-powerpc64le-gnu Completed in 92ms
+201 timing reifyNode:node_modules/@rollup/rollup-linux-loongarch64-gnu Completed in 92ms
+202 timing reifyNode:node_modules/@rollup/rollup-linux-arm64-musl Completed in 92ms
+203 timing reifyNode:node_modules/@rollup/rollup-linux-arm64-gnu Completed in 92ms
+204 timing reifyNode:node_modules/@rollup/rollup-linux-arm-musleabihf Completed in 93ms
+205 timing reifyNode:node_modules/@rollup/rollup-linux-arm-gnueabihf Completed in 93ms
+206 timing reifyNode:node_modules/@rollup/rollup-freebsd-x64 Completed in 93ms
+207 timing reifyNode:node_modules/@rollup/rollup-freebsd-arm64 Completed in 93ms
+208 timing reifyNode:node_modules/@rollup/rollup-darwin-x64 Completed in 93ms
+209 timing reifyNode:node_modules/@rollup/rollup-darwin-arm64 Completed in 92ms
+210 timing reifyNode:node_modules/@rollup/rollup-android-arm64 Completed in 92ms
+211 timing reifyNode:node_modules/@rollup/rollup-android-arm-eabi Completed in 92ms
+212 timing reifyNode:node_modules/@esbuild/win32-x64 Completed in 92ms
+213 timing reifyNode:node_modules/@esbuild/win32-ia32 Completed in 92ms
+214 timing reifyNode:node_modules/@esbuild/win32-arm64 Completed in 92ms
+215 timing reifyNode:node_modules/@esbuild/sunos-x64 Completed in 92ms
+216 timing reifyNode:node_modules/@esbuild/openbsd-x64 Completed in 92ms
+217 timing reifyNode:node_modules/@esbuild/openbsd-arm64 Completed in 92ms
+218 timing reifyNode:node_modules/@esbuild/netbsd-x64 Completed in 92ms
+219 timing reifyNode:node_modules/@esbuild/netbsd-arm64 Completed in 92ms
+220 timing reifyNode:node_modules/@esbuild/linux-s390x Completed in 92ms
+221 timing reifyNode:node_modules/@esbuild/linux-riscv64 Completed in 92ms
+222 timing reifyNode:node_modules/@esbuild/linux-ppc64 Completed in 92ms
+223 timing reifyNode:node_modules/@esbuild/linux-mips64el Completed in 92ms
+224 timing reifyNode:node_modules/@esbuild/linux-loong64 Completed in 92ms
+225 timing reifyNode:node_modules/@esbuild/linux-ia32 Completed in 92ms
+226 timing reifyNode:node_modules/@esbuild/linux-arm64 Completed in 92ms
+227 timing reifyNode:node_modules/@esbuild/linux-arm Completed in 92ms
+228 timing reifyNode:node_modules/@esbuild/freebsd-x64 Completed in 92ms
+229 timing reifyNode:node_modules/@esbuild/freebsd-arm64 Completed in 92ms
+230 timing reifyNode:node_modules/@esbuild/darwin-x64 Completed in 93ms
+231 timing reifyNode:node_modules/@esbuild/darwin-arm64 Completed in 93ms
+232 timing reifyNode:node_modules/@esbuild/android-x64 Completed in 93ms
+233 timing reifyNode:node_modules/@esbuild/android-arm64 Completed in 93ms
+234 timing reifyNode:node_modules/@esbuild/android-arm Completed in 92ms
+235 timing reifyNode:node_modules/@esbuild/aix-ppc64 Completed in 92ms
+236 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 926ms
+237 timing auditReport:getReport Completed in 930ms
+238 silly audit report {}
+239 timing auditReport:init Completed in 0ms
+240 timing reify:audit Completed in 932ms
+241 timing reifyNode:node_modules/universalify Completed in 984ms
+242 timing reifyNode:node_modules/shebang-command Completed in 984ms
+243 timing reifyNode:node_modules/normalize-range Completed in 983ms
+244 timing reifyNode:node_modules/ms Completed in 984ms
+245 timing reifyNode:node_modules/default-browser-id Completed in 983ms
+246 timing reifyNode:node_modules/bundle-name Completed in 983ms
+247 timing reifyNode:node_modules/strip-final-newline Completed in 992ms
+248 timing reifyNode:node_modules/shebang-regex Completed in 994ms
+249 timing reifyNode:node_modules/run-applescript Completed in 994ms
+250 timing reifyNode:node_modules/is-plain-obj Completed in 994ms
+251 timing reifyNode:node_modules/path-key Completed in 996ms
+252 timing reifyNode:node_modules/parse-ms Completed in 996ms
+253 timing reifyNode:node_modules/npm-run-path Completed in 996ms
+254 timing reifyNode:node_modules/lru-cache Completed in 996ms
+255 timing reifyNode:node_modules/is-wsl Completed in 998ms
+256 timing reifyNode:node_modules/is-unicode-supported Completed in 998ms
+257 timing reifyNode:node_modules/is-stream Completed in 998ms
+258 timing reifyNode:node_modules/define-lazy-prop Completed in 998ms
+259 timing reifyNode:node_modules/convert-source-map Completed in 997ms
+260 timing reifyNode:node_modules/@vue/babel-helper-vue-transform-on Completed in 999ms
+261 timing reifyNode:node_modules/@sindresorhus/merge-streams Completed in 998ms
+262 timing reifyNode:node_modules/yallist Completed in 1010ms
+263 timing reifyNode:node_modules/pretty-ms Completed in 1009ms
+264 timing reifyNode:node_modules/js-tokens Completed in 1006ms
+265 timing reifyNode:node_modules/is-inside-container Completed in 1007ms
+266 timing reifyNode:node_modules/is-docker Completed in 1007ms
+267 timing reifyNode:node_modules/@babel/plugin-syntax-import-meta Completed in 998ms
+268 timing reifyNode:node_modules/@polka/url Completed in 1000ms
+269 timing reifyNode:node_modules/picocolors Completed in 1012ms
+270 timing reifyNode:node_modules/npm-run-path/node_modules/path-key Completed in 1011ms
+271 timing reifyNode:node_modules/default-browser Completed in 1006ms
+272 timing reifyNode:node_modules/yoctocolors Completed in 1017ms
+273 timing reifyNode:node_modules/which Completed in 1017ms
+274 timing reifyNode:node_modules/vite-hot-client Completed in 1017ms
+275 timing reifyNode:node_modules/unicorn-magic Completed in 1016ms
+276 timing reifyNode:node_modules/perfect-debounce Completed in 1016ms
+277 timing reifyNode:node_modules/@babel/plugin-syntax-typescript Completed in 1005ms
+278 timing reifyNode:node_modules/@babel/plugin-syntax-jsx Completed in 1005ms
+279 timing reifyNode:node_modules/@babel/plugin-syntax-import-attributes Completed in 1005ms
+280 timing reifyNode:node_modules/@babel/plugin-syntax-decorators Completed in 1005ms
+281 timing reifyNode:node_modules/graceful-fs Completed in 1015ms
+282 timing reifyNode:node_modules/globals Completed in 1015ms
+283 timing reifyNode:node_modules/@babel/helper-skip-transparent-expression-wrappers Completed in 1006ms
+284 timing reifyNode:node_modules/@babel/helper-plugin-utils Completed in 1006ms
+285 timing reifyNode:node_modules/@babel/helper-optimise-call-expression Completed in 1007ms
+286 timing reifyNode:node_modules/@alloc/quick-lru Completed in 1007ms
+287 timing reifyNode:node_modules/@babel/helper-annotate-as-pure Completed in 1007ms
+288 timing reifyNode:node_modules/@types/estree Completed in 1013ms
+289 timing reifyNode:node_modules/sirv Completed in 1023ms
+290 timing reifyNode:node_modules/mrmime Completed in 1024ms
+291 timing reifyNode:node_modules/jsonfile Completed in 1022ms
+292 timing reifyNode:node_modules/figures Completed in 1023ms
+293 timing reifyNode:node_modules/@vue/compiler-ssr Completed in 1021ms
+294 timing reifyNode:node_modules/@vue/babel-plugin-resolve-type Completed in 1021ms
+295 timing reifyNode:node_modules/@tailwindcss/oxide Completed in 1020ms
+296 timing reifyNode:node_modules/@babel/helper-string-parser Completed in 1020ms
+297 timing reifyNode:node_modules/@babel/helper-replace-supers Completed in 1020ms
+298 timing reifyNode:node_modules/@babel/code-frame Completed in 1019ms
+299 timing reifyNode:node_modules/@babel/helper-member-expression-to-functions Completed in 1019ms
+300 timing reifyNode:node_modules/debug Completed in 1029ms
+301 timing reifyNode:node_modules/update-browserslist-db Completed in 1038ms
+302 timing reifyNode:node_modules/open Completed in 1036ms
+303 timing reifyNode:node_modules/isexe Completed in 1035ms
+304 timing reifyNode:node_modules/detect-libc Completed in 1037ms
+305 timing reifyNode:node_modules/@vue/devtools-shared Completed in 1036ms
+306 timing reifyNode:node_modules/totalist Completed in 1048ms
+307 timing reifyNode:node_modules/gensync Completed in 1044ms
+308 timing reifyNode:node_modules/cross-spawn Completed in 1049ms
+309 timing reifyNode:node_modules/birpc Completed in 1048ms
+310 timing reifyNode:node_modules/tinyglobby Completed in 1057ms
+311 timing reifyNode:node_modules/semver Completed in 1059ms
+312 timing reifyNode:node_modules/node-releases Completed in 1058ms
+313 timing reifyNode:node_modules/jsesc Completed in 1057ms
+314 timing reifyNode:node_modules/postcss-value-parser Completed in 1064ms
+315 timing reifyNode:node_modules/mitt Completed in 1063ms
+316 timing reifyNode:node_modules/human-signals Completed in 1063ms
+317 timing reifyNode:node_modules/@babel/plugin-proposal-decorators Completed in 1054ms
+318 timing reifyNode:node_modules/@jridgewell/set-array Completed in 1057ms
+319 timing reifyNode:node_modules/@jridgewell/resolve-uri Completed in 1057ms
+320 timing reifyNode:node_modules/@babel/helper-validator-option Completed in 1055ms
+321 timing reifyNode:node_modules/@babel/helper-validator-identifier Completed in 1055ms
+322 timing reifyNode:node_modules/escalade Completed in 1064ms
+323 timing reifyNode:node_modules/copy-anything Completed in 1062ms
+324 timing reifyNode:node_modules/rfdc Completed in 1073ms
+325 timing reifyNode:node_modules/@vue/babel-plugin-jsx Completed in 1069ms
+326 timing reifyNode:node_modules/@tailwindcss/postcss Completed in 1068ms
+327 timing reifyNode:node_modules/vite-plugin-vue-inspector Completed in 1079ms
+328 timing reifyNode:node_modules/hookable Completed in 1074ms
+329 timing reifyNode:node_modules/is-what Completed in 1081ms
+330 timing reifyNode:node_modules/fraction.js Completed in 1080ms
+331 timing reifyNode:node_modules/error-stack-parser-es Completed in 1079ms
+332 timing reifyNode:node_modules/@vue/shared Completed in 1093ms
+333 timing reifyNode:node_modules/@vue/devtools-core Completed in 1092ms
+334 timing reifyNode:node_modules/picomatch Completed in 1100ms
+335 timing reifyNode:node_modules/@vue/devtools-core/node_modules/nanoid Completed in 1095ms
+336 timing reifyNode:node_modules/browserslist Completed in 1096ms
+337 timing reifyNode:node_modules/get-stream Completed in 1103ms
+338 timing reifyNode:node_modules/@babel/helper-module-imports Completed in 1100ms
+339 timing reifyNode:node_modules/@antfu/utils Completed in 1100ms
+340 timing reifyNode:node_modules/esbuild Completed in 1112ms
+341 timing reifyNode:node_modules/chownr Completed in 1110ms
+342 timing reifyNode:node_modules/@tailwindcss/node Completed in 1111ms
+343 timing reifyNode:node_modules/@jridgewell/gen-mapping Completed in 1110ms
+344 timing reifyNode:node_modules/@babel/compat-data Completed in 1107ms
+345 timing reifyNode:node_modules/pathe Completed in 1122ms
+346 timing reifyNode:node_modules/kolorist Completed in 1121ms
+347 timing reifyNode:node_modules/@rollup/pluginutils Completed in 1113ms
+348 timing reifyNode:node_modules/@ampproject/remapping Completed in 1113ms
+349 timing reifyNode:node_modules/@vitejs/plugin-vue Completed in 1120ms
+350 timing reifyNode:node_modules/@jridgewell/sourcemap-codec Completed in 1117ms
+351 timing reifyNode:node_modules/@babel/helper-compilation-targets Completed in 1114ms
+352 timing reifyNode:node_modules/electron-to-chromium Completed in 1126ms
+353 timing reifyNode:node_modules/@isaacs/fs-minipass Completed in 1121ms
+354 timing reifyNode:node_modules/tapable Completed in 1137ms
+355 timing reifyNode:node_modules/estree-walker Completed in 1134ms
+356 timing reifyNode:node_modules/tar/node_modules/yallist Completed in 1139ms
+357 timing reifyNode:node_modules/@babel/plugin-transform-typescript Completed in 1133ms
+358 timing reifyNode:node_modules/@babel/template Completed in 1139ms
+359 timing reifyNode:node_modules/source-map-js Completed in 1156ms
+360 timing reifyNode:node_modules/@jridgewell/trace-mapping Completed in 1144ms
+361 timing reifyNode:node_modules/@babel/helper-module-transforms Completed in 1145ms
+362 timing reifyNode:node_modules/nanoid Completed in 1158ms
+363 timing reifyNode:node_modules/minizlib Completed in 1167ms
+364 timing reifyNode:node_modules/minipass Completed in 1172ms
+365 timing reifyNode:node_modules/@vue/server-renderer Completed in 1170ms
+366 timing reifyNode:node_modules/@vue/reactivity Completed in 1169ms
+367 timing reifyNode:node_modules/@sec-ant/readable-stream Completed in 1172ms
+368 timing reifyNode:node_modules/json5 Completed in 1179ms
+369 timing reifyNode:node_modules/signal-exit Completed in 1182ms
+370 timing reifyNode:node_modules/@vue/devtools-kit Completed in 1180ms
+371 timing reifyNode:node_modules/magic-string Completed in 1186ms
+372 timing reifyNode:node_modules/lightningcss Completed in 1188ms
+373 timing reifyNode:node_modules/@vue/compiler-core Completed in 1190ms
+374 timing reifyNode:node_modules/superjson Completed in 1210ms
+375 timing reifyNode:node_modules/@babel/helper-create-class-features-plugin Completed in 1196ms
+376 timing reifyNode:node_modules/@vue/compiler-dom Completed in 1211ms
+377 timing reifyNode:node_modules/fs-extra Completed in 1219ms
+378 timing reifyNode:node_modules/fdir Completed in 1220ms
+379 timing reifyNode:node_modules/@vue/runtime-core Completed in 1225ms
+380 timing reifyNode:node_modules/speakingurl Completed in 1250ms
+381 timing reifyNode:node_modules/enhanced-resolve Completed in 1260ms
+382 timing reifyNode:node_modules/postcss Completed in 1289ms
+383 timing reifyNode:node_modules/tailwindcss Completed in 1290ms
+384 timing reifyNode:node_modules/csstype Completed in 1287ms
+385 timing reifyNode:node_modules/@vue/runtime-dom Completed in 1296ms
+386 timing reifyNode:node_modules/mkdirp Completed in 1305ms
+387 timing reifyNode:node_modules/@babel/generator Completed in 1315ms
+388 timing reifyNode:node_modules/entities Completed in 1339ms
+389 timing reifyNode:node_modules/autoprefixer Completed in 1344ms
+390 timing reifyNode:node_modules/@babel/parser Completed in 1356ms
+391 timing reifyNode:node_modules/@babel/traverse Completed in 1361ms
+392 timing reifyNode:node_modules/jiti Completed in 1389ms
+393 timing reifyNode:node_modules/@vue/compiler-sfc Completed in 1397ms
+394 timing reifyNode:node_modules/@rollup/rollup-linux-x64-musl Completed in 1399ms
+395 timing reifyNode:node_modules/@rollup/rollup-linux-x64-gnu Completed in 1400ms
+396 timing reifyNode:node_modules/@tailwindcss/oxide-linux-x64-gnu Completed in 1437ms
+397 timing reifyNode:node_modules/vue Completed in 1451ms
+398 timing reifyNode:node_modules/@tailwindcss/oxide-linux-x64-musl Completed in 1440ms
+399 timing reifyNode:node_modules/rollup Completed in 1481ms
+400 timing reifyNode:node_modules/vite Completed in 1489ms
+401 timing reifyNode:node_modules/execa Completed in 1488ms
+402 timing reifyNode:node_modules/@babel/core Completed in 1484ms
+403 timing reifyNode:node_modules/vite-plugin-inspect Completed in 1570ms
+404 timing reifyNode:node_modules/@babel/helpers Completed in 1561ms
+405 timing reifyNode:node_modules/tar Completed in 1598ms
+406 timing reifyNode:node_modules/@babel/types Completed in 1613ms
+407 timing reifyNode:node_modules/vite-plugin-vue-devtools Completed in 1629ms
+408 timing reifyNode:node_modules/lightningcss-linux-x64-gnu Completed in 1652ms
+409 timing reifyNode:node_modules/lightningcss-linux-x64-musl Completed in 1653ms
+410 timing reifyNode:node_modules/@esbuild/linux-x64 Completed in 1659ms
+411 timing reifyNode:node_modules/caniuse-lite Completed in 1741ms
+412 timing reify:unpack Completed in 1751ms
+413 timing reify:unretire Completed in 0ms
+414 timing build:queue Completed in 12ms
+415 timing build:link:node_modules/@babel/parser Completed in 7ms
+416 timing build:link:node_modules/@vue/devtools-core/node_modules/nanoid Completed in 4ms
+417 timing build:link:node_modules/autoprefixer Completed in 6ms
+418 timing build:link:node_modules/browserslist Completed in 6ms
+419 timing build:link:node_modules/esbuild Completed in 6ms
+420 timing build:link:node_modules/is-docker Completed in 6ms
+421 timing build:link:node_modules/is-inside-container Completed in 6ms
+422 timing build:link:node_modules/jiti Completed in 6ms
+423 timing build:link:node_modules/jsesc Completed in 6ms
+424 timing build:link:node_modules/mkdirp Completed in 5ms
+425 timing build:link:node_modules/json5 Completed in 5ms
+426 timing build:link:node_modules/nanoid Completed in 5ms
+427 timing build:link:node_modules/rollup Completed in 5ms
+428 timing build:link:node_modules/semver Completed in 5ms
+429 timing build:link:node_modules/update-browserslist-db Completed in 5ms
+430 timing build:link:node_modules/vite Completed in 5ms
+431 timing build:link:node_modules/which Completed in 4ms
+432 timing build:link Completed in 7ms
+433 info run @tailwindcss/oxide@4.1.6 postinstall node_modules/@tailwindcss/oxide node ./scripts/install.js
+434 info run esbuild@0.25.4 postinstall node_modules/esbuild node install.js
+435 info run esbuild@0.25.4 postinstall { code: 0, signal: null }
+436 timing build:run:postinstall:node_modules/esbuild Completed in 162ms
+437 info run @tailwindcss/oxide@4.1.6 postinstall { code: 0, signal: null }
+438 timing build:run:postinstall:node_modules/@tailwindcss/oxide Completed in 181ms
+439 timing build:run:postinstall Completed in 182ms
+440 timing build:deps Completed in 201ms
+441 timing build Completed in 201ms
+442 timing reify:build Completed in 201ms
+443 timing reify:trash Completed in 3ms
+444 timing reify Completed in 2046ms
+445 silly ADD node_modules/yoctocolors
+446 silly ADD node_modules/yallist
+447 silly ADD node_modules/which
+448 silly ADD node_modules/vue
+449 silly ADD node_modules/vite-plugin-vue-inspector
+450 silly ADD node_modules/vite-plugin-vue-devtools
+451 silly ADD node_modules/vite-plugin-inspect
+452 silly ADD node_modules/vite-hot-client
+453 silly ADD node_modules/vite
+454 silly ADD node_modules/update-browserslist-db
+455 silly ADD node_modules/universalify
+456 silly ADD node_modules/unicorn-magic
+457 silly ADD node_modules/totalist
+458 silly ADD node_modules/tinyglobby
+459 silly ADD node_modules/tar
+460 silly ADD node_modules/tar/node_modules/yallist
+461 silly ADD node_modules/tapable
+462 silly ADD node_modules/tailwindcss
+463 silly ADD node_modules/superjson
+464 silly ADD node_modules/strip-final-newline
+465 silly ADD node_modules/speakingurl
+466 silly ADD node_modules/source-map-js
+467 silly ADD node_modules/sirv
+468 silly ADD node_modules/signal-exit
+469 silly ADD node_modules/shebang-regex
+470 silly ADD node_modules/shebang-command
+471 silly ADD node_modules/semver
+472 silly ADD node_modules/run-applescript
+473 silly ADD node_modules/rollup
+474 silly ADD node_modules/rfdc
+475 silly ADD node_modules/pretty-ms
+476 silly ADD node_modules/postcss-value-parser
+477 silly ADD node_modules/postcss
+478 silly ADD node_modules/picomatch
+479 silly ADD node_modules/picocolors
+480 silly ADD node_modules/perfect-debounce
+481 silly ADD node_modules/pathe
+482 silly ADD node_modules/path-key
+483 silly ADD node_modules/parse-ms
+484 silly ADD node_modules/open
+485 silly ADD node_modules/npm-run-path
+486 silly ADD node_modules/npm-run-path/node_modules/path-key
+487 silly ADD node_modules/normalize-range
+488 silly ADD node_modules/node-releases
+489 silly ADD node_modules/nanoid
+490 silly ADD node_modules/ms
+491 silly ADD node_modules/mrmime
+492 silly ADD node_modules/mkdirp
+493 silly ADD node_modules/mitt
+494 silly ADD node_modules/minizlib
+495 silly ADD node_modules/minipass
+496 silly ADD node_modules/magic-string
+497 silly ADD node_modules/lru-cache
+498 silly ADD
+499 silly ADD
+500 silly ADD node_modules/lightningcss-linux-x64-musl
+501 silly ADD node_modules/lightningcss-linux-x64-gnu
+502 silly ADD
+503 silly ADD
+504 silly ADD
+505 silly ADD
+506 silly ADD
+507 silly ADD
+508 silly ADD node_modules/lightningcss
+509 silly ADD node_modules/kolorist
+510 silly ADD node_modules/jsonfile
+511 silly ADD node_modules/json5
+512 silly ADD node_modules/jsesc
+513 silly ADD node_modules/js-tokens
+514 silly ADD node_modules/jiti
+515 silly ADD node_modules/isexe
+516 silly ADD node_modules/is-wsl
+517 silly ADD node_modules/is-what
+518 silly ADD node_modules/is-unicode-supported
+519 silly ADD node_modules/is-stream
+520 silly ADD node_modules/is-plain-obj
+521 silly ADD node_modules/is-inside-container
+522 silly ADD node_modules/is-docker
+523 silly ADD node_modules/human-signals
+524 silly ADD node_modules/hookable
+525 silly ADD node_modules/graceful-fs
+526 silly ADD node_modules/globals
+527 silly ADD node_modules/get-stream
+528 silly ADD node_modules/gensync
+529 silly ADD
+530 silly ADD node_modules/fs-extra
+531 silly ADD node_modules/fraction.js
+532 silly ADD node_modules/figures
+533 silly ADD node_modules/fdir
+534 silly ADD node_modules/execa
+535 silly ADD node_modules/estree-walker
+536 silly ADD node_modules/escalade
+537 silly ADD node_modules/esbuild
+538 silly ADD node_modules/error-stack-parser-es
+539 silly ADD node_modules/entities
+540 silly ADD node_modules/enhanced-resolve
+541 silly ADD node_modules/electron-to-chromium
+542 silly ADD node_modules/detect-libc
+543 silly ADD node_modules/define-lazy-prop
+544 silly ADD node_modules/default-browser-id
+545 silly ADD node_modules/default-browser
+546 silly ADD node_modules/debug
+547 silly ADD node_modules/csstype
+548 silly ADD node_modules/cross-spawn
+549 silly ADD node_modules/copy-anything
+550 silly ADD node_modules/convert-source-map
+551 silly ADD node_modules/chownr
+552 silly ADD node_modules/caniuse-lite
+553 silly ADD node_modules/bundle-name
+554 silly ADD node_modules/browserslist
+555 silly ADD node_modules/birpc
+556 silly ADD node_modules/autoprefixer
+557 silly ADD node_modules/@vue/shared
+558 silly ADD node_modules/@vue/server-renderer
+559 silly ADD node_modules/@vue/runtime-dom
+560 silly ADD node_modules/@vue/runtime-core
+561 silly ADD node_modules/@vue/reactivity
+562 silly ADD node_modules/@vue/devtools-shared
+563 silly ADD node_modules/@vue/devtools-kit
+564 silly ADD node_modules/@vue/devtools-core
+565 silly ADD node_modules/@vue/devtools-core/node_modules/nanoid
+566 silly ADD node_modules/@vue/compiler-ssr
+567 silly ADD node_modules/@vue/compiler-sfc
+568 silly ADD node_modules/@vue/compiler-dom
+569 silly ADD node_modules/@vue/compiler-core
+570 silly ADD node_modules/@vue/babel-plugin-resolve-type
+571 silly ADD node_modules/@vue/babel-plugin-jsx
+572 silly ADD node_modules/@vue/babel-helper-vue-transform-on
+573 silly ADD node_modules/@vitejs/plugin-vue
+574 silly ADD node_modules/@types/estree
+575 silly ADD node_modules/@tailwindcss/postcss
+576 silly ADD
+577 silly ADD
+578 silly ADD
+579 silly ADD node_modules/@tailwindcss/oxide-linux-x64-musl
+580 silly ADD node_modules/@tailwindcss/oxide-linux-x64-gnu
+581 silly ADD
+582 silly ADD
+583 silly ADD
+584 silly ADD
+585 silly ADD
+586 silly ADD
+587 silly ADD
+588 silly ADD node_modules/@tailwindcss/oxide
+589 silly ADD node_modules/@tailwindcss/node
+590 silly ADD node_modules/@sindresorhus/merge-streams
+591 silly ADD node_modules/@sec-ant/readable-stream
+592 silly ADD
+593 silly ADD
+594 silly ADD
+595 silly ADD node_modules/@rollup/rollup-linux-x64-musl
+596 silly ADD node_modules/@rollup/rollup-linux-x64-gnu
+597 silly ADD
+598 silly ADD
+599 silly ADD
+600 silly ADD
+601 silly ADD
+602 silly ADD
+603 silly ADD
+604 silly ADD
+605 silly ADD
+606 silly ADD
+607 silly ADD
+608 silly ADD
+609 silly ADD
+610 silly ADD
+611 silly ADD
+612 silly ADD node_modules/@rollup/pluginutils
+613 silly ADD node_modules/@polka/url
+614 silly ADD node_modules/@jridgewell/trace-mapping
+615 silly ADD node_modules/@jridgewell/sourcemap-codec
+616 silly ADD node_modules/@jridgewell/set-array
+617 silly ADD node_modules/@jridgewell/resolve-uri
+618 silly ADD node_modules/@jridgewell/gen-mapping
+619 silly ADD node_modules/@isaacs/fs-minipass
+620 silly ADD
+621 silly ADD
+622 silly ADD
+623 silly ADD
+624 silly ADD
+625 silly ADD
+626 silly ADD
+627 silly ADD
+628 silly ADD node_modules/@esbuild/linux-x64
+629 silly ADD
+630 silly ADD
+631 silly ADD
+632 silly ADD
+633 silly ADD
+634 silly ADD
+635 silly ADD
+636 silly ADD
+637 silly ADD
+638 silly ADD
+639 silly ADD
+640 silly ADD
+641 silly ADD
+642 silly ADD
+643 silly ADD
+644 silly ADD
+645 silly ADD node_modules/@babel/types
+646 silly ADD node_modules/@babel/traverse
+647 silly ADD node_modules/@babel/template
+648 silly ADD node_modules/@babel/plugin-transform-typescript
+649 silly ADD node_modules/@babel/plugin-syntax-typescript
+650 silly ADD node_modules/@babel/plugin-syntax-jsx
+651 silly ADD node_modules/@babel/plugin-syntax-import-meta
+652 silly ADD node_modules/@babel/plugin-syntax-import-attributes
+653 silly ADD node_modules/@babel/plugin-syntax-decorators
+654 silly ADD node_modules/@babel/plugin-proposal-decorators
+655 silly ADD node_modules/@babel/parser
+656 silly ADD node_modules/@babel/helpers
+657 silly ADD node_modules/@babel/helper-validator-option
+658 silly ADD node_modules/@babel/helper-validator-identifier
+659 silly ADD node_modules/@babel/helper-string-parser
+660 silly ADD node_modules/@babel/helper-skip-transparent-expression-wrappers
+661 silly ADD node_modules/@babel/helper-replace-supers
+662 silly ADD node_modules/@babel/helper-plugin-utils
+663 silly ADD node_modules/@babel/helper-optimise-call-expression
+664 silly ADD node_modules/@babel/helper-module-transforms
+665 silly ADD node_modules/@babel/helper-module-imports
+666 silly ADD node_modules/@babel/helper-member-expression-to-functions
+667 silly ADD node_modules/@babel/helper-create-class-features-plugin
+668 silly ADD node_modules/@babel/helper-compilation-targets
+669 silly ADD node_modules/@babel/helper-annotate-as-pure
+670 silly ADD node_modules/@babel/generator
+671 silly ADD node_modules/@babel/core
+672 silly ADD node_modules/@babel/compat-data
+673 silly ADD node_modules/@babel/code-frame
+674 silly ADD node_modules/@antfu/utils
+675 silly ADD node_modules/@ampproject/remapping
+676 silly ADD node_modules/@alloc/quick-lru
+677 timing command:ci Completed in 2471ms
+678 verbose exit 0
+679 timing npm Completed in 2520ms
+680 info ok
