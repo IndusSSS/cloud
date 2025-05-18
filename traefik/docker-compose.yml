@@ -89,11 +89,17 @@ services:
     image: postgres:15-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ssc
+      POSTGRES_USER:     ssc
       POSTGRES_PASSWORD: ChangeMeToAStrongPass!
-      POSTGRES_DB: sensordb
+      POSTGRES_DB:       sensordb
+    ports:
+      - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+
 
   ws:
     build: ../services/ws
