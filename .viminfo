@@ -11,8 +11,10 @@
 # hlsearch on (H) or off (h):
 ~h
 # Command Line History (newest to oldest):
+:a
+|2,0,1748369991,,"a"
 :q
-|2,0,1747899722,,"q"
+|2,0,1748369954,,"q"
 :w
 |2,0,1747544606,,"w"
 :Q
@@ -30,234 +32,256 @@
 
 # Registers:
 ""-	CHAR	0
-	 
-|3,1,36,0,1,0,1747273198," "
+	s
+|3,1,36,0,1,0,1748369980,"s"
 
 # File marks:
-'0  76  2  ~/traefik/docker-compose.yml
-|4,48,76,2,1747899722,"~/traefik/docker-compose.yml"
-'1  152  6  ~/traefik/docker-compose.yml
-|4,49,152,6,1747751585,"~/traefik/docker-compose.yml"
-'2  152  6  ~/traefik/docker-compose.yml
-|4,50,152,6,1747751585,"~/traefik/docker-compose.yml"
-'3  152  12  ~/traefik/docker-compose.yml
-|4,51,152,12,1747744231,"~/traefik/docker-compose.yml"
-'4  152  12  ~/traefik/docker-compose.yml
-|4,52,152,12,1747744231,"~/traefik/docker-compose.yml"
-'5  152  4  ~/traefik/docker-compose.yml
-|4,53,152,4,1747743351,"~/traefik/docker-compose.yml"
-'6  152  4  ~/traefik/docker-compose.yml
-|4,54,152,4,1747743351,"~/traefik/docker-compose.yml"
-'7  1  0  ~/services/api/app/services/api/app/main.py
-|4,55,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
-'8  51  2  ~/traefik/docker-compose.yml
-|4,56,51,2,1747279297,"~/traefik/docker-compose.yml"
-'9  51  2  ~/traefik/docker-compose.yml
-|4,57,51,2,1747279297,"~/traefik/docker-compose.yml"
+'0  69  0  ~/smartsecurity/cloud/services/auth-api/app/main.py
+|4,48,69,0,1748370083,"~/smartsecurity/cloud/services/auth-api/app/main.py"
+'1  2  3  ~/smartsecurity/cloud/docker-compose.yml
+|4,49,2,3,1748365890,"~/smartsecurity/cloud/docker-compose.yml"
+'2  1  4  ~/cloud/backend/app/main.py
+|4,50,1,4,1748326789,"~/cloud/backend/app/main.py"
+'3  39  1  ~/cloud/backend/app/main.py
+|4,51,39,1,1748326763,"~/cloud/backend/app/main.py"
+'4  39  1  ~/cloud/backend/app/main.py
+|4,52,39,1,1748326763,"~/cloud/backend/app/main.py"
+'5  76  2  ~/traefik/docker-compose.yml
+|4,53,76,2,1747899722,"~/traefik/docker-compose.yml"
+'6  152  6  ~/traefik/docker-compose.yml
+|4,54,152,6,1747751585,"~/traefik/docker-compose.yml"
+'7  152  6  ~/traefik/docker-compose.yml
+|4,55,152,6,1747751585,"~/traefik/docker-compose.yml"
+'8  152  12  ~/traefik/docker-compose.yml
+|4,56,152,12,1747744231,"~/traefik/docker-compose.yml"
+'9  152  12  ~/traefik/docker-compose.yml
+|4,57,152,12,1747744231,"~/traefik/docker-compose.yml"
 
 # Jumplist (newest first):
+-'  69  0  ~/smartsecurity/cloud/services/auth-api/app/main.py
+|4,39,69,0,1748370083,"~/smartsecurity/cloud/services/auth-api/app/main.py"
+-'  1  0  ~/smartsecurity/cloud/services/auth-api/app/main.py
+|4,39,1,0,1748369755,"~/smartsecurity/cloud/services/auth-api/app/main.py"
+-'  2  3  ~/smartsecurity/cloud/docker-compose.yml
+|4,39,2,3,1748365890,"~/smartsecurity/cloud/docker-compose.yml"
+-'  2  3  ~/smartsecurity/cloud/docker-compose.yml
+|4,39,2,3,1748365890,"~/smartsecurity/cloud/docker-compose.yml"
+-'  1  0  ~/smartsecurity/cloud/docker-compose.yml
+|4,39,1,0,1748365744,"~/smartsecurity/cloud/docker-compose.yml"
+-'  1  0  ~/smartsecurity/cloud/docker-compose.yml
+|4,39,1,0,1748365744,"~/smartsecurity/cloud/docker-compose.yml"
+-'  1  4  ~/cloud/backend/app/main.py
+|4,39,1,4,1748326789,"~/cloud/backend/app/main.py"
+-'  1  4  ~/cloud/backend/app/main.py
+|4,39,1,4,1748326789,"~/cloud/backend/app/main.py"
+-'  1  4  ~/cloud/backend/app/main.py
+|4,39,1,4,1748326789,"~/cloud/backend/app/main.py"
+-'  1  4  ~/cloud/backend/app/main.py
+|4,39,1,4,1748326789,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326772,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326772,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326772,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326772,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326763,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326763,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326763,"~/cloud/backend/app/main.py"
+-'  39  1  ~/cloud/backend/app/main.py
+|4,39,39,1,1748326763,"~/cloud/backend/app/main.py"
+-'  1  0  ~/cloud/backend/app/main.py
+|4,39,1,0,1748326705,"~/cloud/backend/app/main.py"
+-'  1  0  ~/cloud/backend/app/main.py
+|4,39,1,0,1748326705,"~/cloud/backend/app/main.py"
+-'  1  0  ~/cloud/backend/app/main.py
+|4,39,1,0,1748326705,"~/cloud/backend/app/main.py"
+-'  1  0  ~/cloud/backend/app/main.py
+|4,39,1,0,1748326705,"~/cloud/backend/app/main.py"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
+-'  76  2  ~/traefik/docker-compose.yml
+|4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
 -'  76  2  ~/traefik/docker-compose.yml
 |4,39,76,2,1747899722,"~/traefik/docker-compose.yml"
 -'  152  6  ~/traefik/docker-compose.yml
 |4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
 -'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747899469,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
 |4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  6  ~/traefik/docker-compose.yml
+|4,39,152,6,1747751585,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
+-'  152  12  ~/traefik/docker-compose.yml
+|4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
 -'  152  12  ~/traefik/docker-compose.yml
 |4,39,152,12,1747744231,"~/traefik/docker-compose.yml"
 -'  152  4  ~/traefik/docker-compose.yml
 |4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747743338,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747743338,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747743338,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747743338,"~/traefik/docker-compose.yml"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  1  0  ~/services/api/app/services/api/app/main.py
-|4,39,1,0,1747309229,"~/services/api/app/services/api/app/main.py"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747279297,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747279297,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747279297,"~/traefik/docker-compose.yml"
--'  51  2  ~/traefik/docker-compose.yml
-|4,39,51,2,1747279297,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747279153,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747273404,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747273404,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747273404,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747273404,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747273263,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  307  2  ~/traefik/docker-compose.yml
-|4,39,307,2,1747273231,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273160,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273080,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273080,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273080,"~/traefik/docker-compose.yml"
--'  78  15  ~/traefik/docker-compose.yml
-|4,39,78,15,1747273080,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747212194,"~/traefik/docker-compose.yml"
--'  79  0  ~/traefik/docker-compose.yml
-|4,39,79,0,1747212194,"~/traefik/docker-compose.yml"
--'  1  0  ~/traefik/docker-compose.yml
-|4,39,1,0,1747212194,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
+-'  152  4  ~/traefik/docker-compose.yml
+|4,39,152,4,1747743351,"~/traefik/docker-compose.yml"
 
 # History of marks within files (newest to oldest):
+
+> ~/smartsecurity/cloud/services/auth-api/app/main.py
+	*	1748369989	0
+	"	69	0
+	.	74	0
+	+	66	0
+	+	8	0
+	+	1	0
+	+	74	0
+
+> ~/smartsecurity/cloud/docker-compose.yml
+	*	1748365819	0
+	"	2	3
+	.	2	2
+	+	43	8
+	+	44	12
+	+	47	0
+	+	2	2
+
+> ~/cloud/backend/app/main.py
+	*	1748326786	0
+	"	1	4
 
 > ~/traefik/docker-compose.yml
 	*	1747899496	0
