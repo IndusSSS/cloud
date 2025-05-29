@@ -1,12 +1,11 @@
-# services/backend/Dockerfile
+# infra/services/backend/Dockerfile
 
 FROM php:8.3-fpm-alpine
 
-# Install minimal extensions you need (none for now)
-# RUN docker-php-ext-install pdo_mysql
-
 WORKDIR /var/www/html
-COPY public/ .    # upload.php lives here
 
-# Permissions
+# Copy upload handler into the web root
+COPY public/. .
+
+# Ensure www-data owns everything
 RUN chown -R www-data:www-data /var/www/html
