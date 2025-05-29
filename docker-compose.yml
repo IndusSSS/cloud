@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  db:
+    image: "postgres:15-alpine"
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: "ssc"
+      POSTGRES_PASSWORD: "ChangeMeToAStrongPass!"
+      POSTGRES_DB: "sensordb"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  api:
+    build:
+      context: "./backend"
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+    volumes:
+      - "./backend:/home/admin/backend"
+    working_dir: "/home/admin/backend"
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://ssc:ChangeMeToAStrongPass!@db:5432/sensordb"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
