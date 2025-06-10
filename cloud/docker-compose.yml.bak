@@ -1,0 +1,49 @@
+# ~/smartsecurity/cloud/docker-compose.yml
+#
+# Docker Compose v2 (no top-level version key)
+
+services:
+  # ──────────────── PostgreSQL ────────────────
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER:     ssc
+      POSTGRES_PASSWORD: ChangeMeToAStrongPass
+      POSTGRES_DB:       sensordb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U ssc"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ──────────────── FastAPI auth-api ────────────────
+  auth-api:
+    build:
+      context: ./services/auth-api
+      dockerfile: Dockerfile
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+    working_dir: /app
+    volumes:
+      # mount your application code
+      - ./services/auth-api/app:/app/app:ro
+      - ./services/auth-api/alembic:/app/alembic:ro
+      - ./services/auth-api/alembic.ini:/app/alembic.ini:ro
+      - ./services/auth-api/requirements.txt:/app/requirements.txt:ro
+    environment:
+      DATABASE_URL: postgresql+asyncpg://ssc:ChangeMeToAStrongPass@db:5432/sensordb
+      JWT_SECRET:   ChangeMeToARealSecretHere
+      CORS_ORIGIN:  https://admin.smartsecurity.solutions
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:

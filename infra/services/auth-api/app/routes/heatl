@@ -1,0 +1,7 @@
+from fastapi import APIRouter
+
+router = APIRouter()
+
+@router.get("/v1/health", tags=["health"])
+async def health():
+    return {"db": "ok"}

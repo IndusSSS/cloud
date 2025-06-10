@@ -1,0 +1,27 @@
+# infra/traefik/traefik.yml
+
+entryPoints:
+  web:
+    address: ":80"
+  websecure:
+    address: ":443"
+  traefik:
+    address: ":8080"           # <— new
+
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: smart_web
+
+api:
+  dashboard: true              # <— new
+  insecure: true               # <— new
+
+certificatesResolvers:
+  le:
+    acme:
+      email: contact@smartsecurity.solutions
+      storage: /acme.json
+      httpChallenge:
+        entryPoint: web

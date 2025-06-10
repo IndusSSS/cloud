@@ -1,0 +1,162 @@
+# docker-compose.yml
+# ─────────────────────────────────────────────────────────────────────────────
+# Compose v2+ (no explicit 'version:' key)
+# ─────────────────────────────────────────────────────────────────────────────
+services:
+
+  # ──────────────── Traefik Ingress ────────────────
+  traefik:
+    image: traefik:v2.9
+    restart: unless-stopped
+    command:
+      - --configFile=/etc/traefik/traefik.yml
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./traefik/acme.json:/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+    networks:
+      - web
+
+  # ──────────────── PostgreSQL ────────────────
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: SSC
+      POSTGRES_PASSWORD: ChangeMeToAStrongPass!
+      POSTGRES_DB: sensordb
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # ──────────────── FastAPI Auth API ────────────────
+  auth-api:
+    build:
+      context: ./services/auth-api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://SSC:ChangeMeToAStrongPass!@db:5432/sensordb
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      # route api.smartsecurity → /api/v1/*
+      - "traefik.http.routers.auth-api.rule=Host(`api.smartsecurity.solutions`) && PathPrefix(`/api/v1`)"
+      - "traefik.http.routers.auth-api.entrypoints=websecure"
+      - "traefik.http.routers.auth-api.tls.certresolver=le"
+      # strip the `/api/v1` prefix before proxying
+      - "traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api/v1"
+      - "traefik.http.routers.auth-api.middlewares=strip-api-prefix"
+      - "traefik.http.services.auth-api.loadbalancer.server.port=8000"
+    networks:
+      - web
+
+  # ──────────────── Legacy API (if still used) ────────────────
+  api:
+    build:
+      context: ./services/api
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://SSC:ChangeMeToAStrongPass!@db:5432/sensordb
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.legacy-api.rule=Host(`cloud.smartsecurity.solutions`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.legacy-api.entrypoints=websecure"
+      - "traefik.http.routers.legacy-api.tls.certresolver=le"
+      - "traefik.http.services.legacy-api.loadbalancer.server.port=8000"
+      - "traefik.http.middlewares.legacy-strip.stripprefix.prefixes=/api"
+      - "traefik.http.routers.legacy-api.middlewares=legacy-strip"
+    networks:
+      - web
+
+  # ──────────────── WebSocket Service ────────────────
+  ws:
+    build:
+      context: ./services/ws
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ws.rule=Host(`cloud.smartsecurity.solutions`) && PathPrefix(`/ws`)"
+      - "traefik.http.routers.ws.entrypoints=websecure"
+      - "traefik.http.routers.ws.tls.certresolver=le"
+      - "traefik.http.services.ws.loadbalancer.server.port=8000"
+    networks:
+      - web
+
+  # ──────────────── MQTT Broker ────────────────
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+      - ./traefik/mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  # ──────────────── Bridge Service ────────────────
+  bridge:
+    build:
+      context: ./services/bridge
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://SSC:ChangeMeToAStrongPass!@db:5432/sensordb
+      MQTT_BROKER: mqtt
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: sensors/+/data
+
+  # ──────────────── PHP-FPM + Nginx Dashboard ────────────────
+  php-fpm:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/html
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=false"
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/html:ro
+      - ./backend/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php-fpm
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.upload.rule=Host(`cloud.smartsecurity.solutions`) && Path(`/upload.php`)"
+      - "traefik.http.routers.upload.entrypoints=websecure"
+      - "traefik.http.routers.upload.tls.certresolver=le"
+      - "traefik.http.services.upload.loadbalancer.server.port=80"
+
+  dashboard:
+    build:
+      context: ./dashboard/admin-dashboard
+      dockerfile: Dockerfile
+    image: admin-dashboard:latest
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`admin.smartsecurity.solutions`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls.certresolver=le"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=80"
+    networks:
+      - web
+
+volumes:
+  db_data:
+  mosquitto_data:
+  mosquitto_log:
+
+networks:
+  web:
+    external: true

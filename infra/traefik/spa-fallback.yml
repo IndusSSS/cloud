@@ -1,0 +1,6 @@
+http:
+  middlewares:
+    spa-fallback:
+      replacePathRegex:
+        regex: ^/(.*)$
+        replacement: /index.html
