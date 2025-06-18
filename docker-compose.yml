@@ -1,0 +1,145 @@
+version: "3.9"
+
+services:
+  traefik:
+    image: traefik:v2.11
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
+      - --certificatesresolvers.leresolver.acme.email=admin@example.com
+      - --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
+      - --log.level=INFO
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - traefik-acme:/letsencrypt
+    networks:
+      - traefik
+
+  gateway:
+    build: ./services/gateway
+    env_file: ./services/gateway/.env
+    depends_on:
+      - auth-api
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gateway.rule=Host(`gateway.localhost`)"
+      - "traefik.http.routers.gateway.entrypoints=websecure"
+      - "traefik.http.routers.gateway.tls.certresolver=leresolver"
+      - "traefik.http.services.gateway.loadbalancer.server.port=8000"
+    networks:
+      - traefik
+      - backend
+
+  auth-api:
+    build: ./services/auth-api
+    env_file: ./services/auth-api/.env
+    depends_on:
+      - db
+      - redis
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth-api.rule=Host(`auth.localhost`)"
+      - "traefik.http.routers.auth-api.entrypoints=websecure"
+      - "traefik.http.routers.auth-api.tls.certresolver=leresolver"
+      - "traefik.http.services.auth-api.loadbalancer.server.port=8000"
+    networks:
+      - traefik
+      - backend
+
+  device-api:
+    build: ./services/device-api
+    env_file: ./services/device-api/.env
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.device-api.rule=Host(`device.localhost`)"
+      - "traefik.http.routers.device-api.entrypoints=websecure"
+      - "traefik.http.routers.device-api.tls.certresolver=leresolver"
+      - "traefik.http.services.device-api.loadbalancer.server.port=8000"
+    networks:
+      - traefik
+      - backend
+
+  metrics-api:
+    build: ./services/metrics-api
+    env_file: ./services/metrics-api/.env
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.metrics-api.rule=Host(`metrics.localhost`)"
+      - "traefik.http.routers.metrics-api.entrypoints=websecure"
+      - "traefik.http.routers.metrics-api.tls.certresolver=leresolver"
+      - "traefik.http.services.metrics-api.loadbalancer.server.port=8000"
+    networks:
+      - traefik
+      - backend
+
+  billing-api:
+    build: ./services/billing-api
+    env_file: ./services/billing-api/.env
+    depends_on:
+      - db
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.billing-api.rule=Host(`billing.localhost`)"
+      - "traefik.http.routers.billing-api.entrypoints=websecure"
+      - "traefik.http.routers.billing-api.tls.certresolver=leresolver"
+      - "traefik.http.services.billing-api.loadbalancer.server.port=8000"
+    networks:
+      - traefik
+      - backend
+
+  media-proxy:
+    build: ./services/media-proxy
+    env_file: ./services/media-proxy/.env
+    depends_on:
+      - redis
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.media-proxy.rule=Host(`media.localhost`)"
+      - "traefik.http.routers.media-proxy.entrypoints=websecure"
+      - "traefik.http.routers.media-proxy.tls.certresolver=leresolver"
+      - "traefik.http.services.media-proxy.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+      - backend
+
+  db:
+    image: postgres:15
+    env_file: ./services/db/.env
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    image: redis:7
+    networks:
+      - backend
+
+  objstore:
+    image: minio/minio
+    env_file: ./services/objstore/.env
+    command: server /data --console-address ":9001"
+    volumes:
+      - objstore-data:/data
+    networks:
+      - backend
+
+volumes:
+  db-data:
+  objstore-data:
+  traefik-acme:
+
+networks:
+  traefik:
+  backend:
