@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   traefik:
     image: traefik:v2.11
@@ -39,7 +37,10 @@ services:
 
   auth-api:
     build: ./services/auth-api
-    env_file: ./services/auth-api/.env
+    env_file:
+      - services/auth-api/.env
+    ports:
+      - "8000:8000"
     depends_on:
       - db
       - redis
