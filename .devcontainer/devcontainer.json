@@ -1,0 +1,7 @@
+{
+  "name": "smartsecurity-cloud",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "gateway",
+  "workspaceFolder": "/workspace/Cloud",
+  "extensions": ["ms-python.python"]
+}
