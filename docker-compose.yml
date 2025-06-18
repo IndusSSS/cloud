@@ -22,7 +22,7 @@ services:
 
   gateway:
     build: ./services/gateway
-    env_file: ./services/gateway/.env
+    env_file: ./services/gateway/.env.example
     depends_on:
       - auth-api
     labels:
@@ -38,7 +38,7 @@ services:
   auth-api:
     build: ./services/auth-api
     env_file:
-      - services/auth-api/.env
+      - services/auth-api/.env.example
     ports:
       - "8000:8000"
     depends_on:
@@ -56,7 +56,7 @@ services:
 
   device-api:
     build: ./services/device-api
-    env_file: ./services/device-api/.env
+    env_file: ./services/device-api/.env.example
     depends_on:
       - db
     labels:
@@ -71,7 +71,7 @@ services:
 
   metrics-api:
     build: ./services/metrics-api
-    env_file: ./services/metrics-api/.env
+    env_file: ./services/metrics-api/.env.example
     depends_on:
       - db
     labels:
@@ -86,7 +86,7 @@ services:
 
   billing-api:
     build: ./services/billing-api
-    env_file: ./services/billing-api/.env
+    env_file: ./services/billing-api/.env.example
     depends_on:
       - db
     labels:
@@ -101,7 +101,7 @@ services:
 
   media-proxy:
     build: ./services/media-proxy
-    env_file: ./services/media-proxy/.env
+    env_file: ./services/media-proxy/.env.example
     depends_on:
       - redis
     labels:
@@ -116,7 +116,7 @@ services:
 
   db:
     image: postgres:15
-    env_file: ./services/db/.env
+    env_file: ./services/db/.env.example
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -129,7 +129,7 @@ services:
 
   objstore:
     image: minio/minio
-    env_file: ./services/objstore/.env
+    env_file: ./services/objstore/.env.example
     command: server /data --console-address ":9001"
     volumes:
       - objstore-data:/data
