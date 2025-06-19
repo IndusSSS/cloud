@@ -1,7 +1,8 @@
 FROM node:20-bullseye AS builder
 WORKDIR /app
 RUN apt-get update && apt-get install -y \
-    python3 python3-pip python3-distutils make g++ build-essential \
+    python3 python3-pip python3-distutils python3-venv \
+    make g++ build-essential \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && python3 -m ensurepip --upgrade \
     && rm -rf /var/lib/apt/lists/*
@@ -13,7 +14,8 @@ RUN npm run build
 FROM node:20-bullseye
 WORKDIR /app
 RUN apt-get update && apt-get install -y \
-    python3 python3-pip python3-distutils make g++ build-essential \
+    python3 python3-pip python3-distutils python3-venv \
+    make g++ build-essential \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && python3 -m ensurepip --upgrade \
     && rm -rf /var/lib/apt/lists/*
