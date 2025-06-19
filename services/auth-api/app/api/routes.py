@@ -3,7 +3,7 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import select
 
-from common import RefreshToken, User, create_access_token, hash_password, verify_password
+from common import User, create_access_token, hash_password, verify_password
 from ..core.config import settings
 from ..db.session import get_session
 
