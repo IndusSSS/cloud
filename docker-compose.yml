@@ -23,6 +23,8 @@ services:
   gateway:
     build: ./services/gateway
     env_file: ./services/gateway/.env.example
+    ports:
+      - "8080:8000"
     depends_on:
       - auth-api
     labels:

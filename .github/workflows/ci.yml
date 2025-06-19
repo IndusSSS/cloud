@@ -13,7 +13,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install dependencies
-        run: pip install ruff pytest pytest-asyncio httpx fastapi uvicorn[standard] sqlmodel sqlalchemy asyncpg python-jose[cryptography] passlib[bcrypt] pydantic-settings slowapi
+        run: pip install ruff pytest pytest-asyncio httpx fastapi uvicorn[standard] sqlmodel sqlalchemy asyncpg python-jose[cryptography] passlib[bcrypt] pydantic-settings slowapi redis websockets testcontainers[redis]
       - name: Lint
         run: ruff .
       - name: Test
