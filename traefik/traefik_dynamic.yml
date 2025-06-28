@@ -1,8 +1,10 @@
+# traefik/traefik_dynamic.yml
 http:
   middlewares:
     dashboard-auth:
       basicAuth:
         usersFile: /etc/traefik/htpasswd
+
   routers:
     traefik-dashboard:
       rule: Host(`admin.smartsecurity.solutions`)

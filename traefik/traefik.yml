@@ -1,6 +1,4 @@
-api:
-  dashboard: true
-
+# traefik/traefik.yml
 entryPoints:
   web:
     address: ":80"
@@ -20,3 +18,10 @@ certificatesResolvers:
       storage: /letsencrypt/acme.json
       httpChallenge:
         entryPoint: web
+
+api:
+  dashboard: true
+  insecure: false
+
+log:
+  level: INFO
