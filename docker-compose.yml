@@ -1,4 +1,5 @@
 services:
+
   traefik:
     image: traefik:v2.10
     command:
@@ -12,10 +13,9 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
       - "--api.dashboard=true"
       - "--log.level=INFO"
-    environment:
-      # quote to stop Compose from parsing the $apr1 hash
-      - TRAEFIK_DASHBOARD_USER: admin
-      - TRAEFIK_DASHBOARD_PASSWORD_HASH: '$apr1$M1J8j...'
+    environment:          # ← MAP style only
+      TRAEFIK_DASHBOARD_USER: admin
+      TRAEFIK_DASHBOARD_PASSWORD_HASH: '$apr1$M1J8j...'   # quoted, no var-expansion
     ports:
       - "80:80"
       - "443:443"
