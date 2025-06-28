@@ -35,6 +35,12 @@ if [[ ! -f traefik/htpasswd ]]; then
   htpasswd -bc traefik/htpasswd admin admin123
 fi
 
+
+# ── 2.5 Remove old Traefik basic-auth vars (we use htpasswd now) ────────
+sed -i '/^TRAEFIK_DASHBOARD_/d' .env || true
+
+
+
 # ── 3. Ensure SECRET_KEY is not placeholder ─────────────────────────
 if grep -q "YOUR_SHARED_SECRET\|REPLACE_ME" .env; then
   sed -i "s/SECRET_KEY=.*/SECRET_KEY=$(openssl rand -hex 32)/" .env
