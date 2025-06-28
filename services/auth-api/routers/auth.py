@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
 from sqlmodel import Session, select
 
 from models import User
-from schemas import Token
+from schemas import LoginRequest, RefreshRequest, Token
 from security import (
     verify_password,
     create_access_token,
@@ -11,16 +10,6 @@ from security import (
     decode_token,
 )
 from dependencies import get_session
-
-
-class LoginRequest(BaseModel):
-    username: str
-    password: str
-
-
-class RefreshRequest(BaseModel):
-    refresh_token: str
-
 
 router = APIRouter()
 
