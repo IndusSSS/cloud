@@ -7,11 +7,9 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 
 SECRET_KEY = os.getenv("SECRET_KEY", "secret")
-ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "15"))
-REFRESH_TOKEN_EXPIRE_MINUTES = int(
-    os.getenv("REFRESH_TOKEN_EXPIRE_MINUTES", str(60 * 24 * 7))
-)
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -41,7 +39,7 @@ def create_access_token(subject: str) -> str:
 def create_refresh_token(subject: str) -> str:
     return _create_token(
         {"sub": subject, "type": "refresh"},
-        timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES),
+        timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS),
     )
 
 

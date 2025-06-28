@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from httpx import ASGITransport, AsyncClient
+from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -15,12 +15,10 @@ from sqlmodel import SQLModel, Session, select
 app = create_app()
 SQLModel.metadata.create_all(engine)
 with Session(engine) as session:
-    if not session.exec(
-        select(User).where(User.email == "admin@smartsecurity.solutions")
-    ).first():
+    if not session.exec(select(User).where(User.username == "admin")).first():
         session.add(
             User(
-                email="admin@smartsecurity.solutions",
+                username="admin",
                 hashed_password=get_password_hash("admin123"),
                 is_superuser=True,
             )
@@ -28,34 +26,32 @@ with Session(engine) as session:
         session.commit()
 
 
-async def get_token(ac: AsyncClient) -> str:
-    res = await ac.post(
+def get_token(client: TestClient) -> str:
+    res = client.post(
         "/login",
-        json={"email": "admin@smartsecurity.solutions", "password": "admin123"},
+        json={"username": "admin", "password": "admin123"},
     )
     return res.json()["access_token"]
 
 
-@pytest.mark.asyncio
-async def test_user_crud() -> None:
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        token = await get_token(ac)
-        headers = {"Authorization": f"Bearer {token}"}
+def test_user_crud() -> None:
+    client = TestClient(app)
+    token = get_token(client)
+    headers = {"Authorization": f"Bearer {token}"}
 
         # create user
-        res = await ac.post(
-            "/users/",
-            json={"email": "new@user.com", "password": "pass", "is_superuser": False},
-            headers=headers,
-        )
-        assert res.status_code == 200
-        user_id = res.json()["id"]
+    res = client.post(
+        "/users/",
+        json={"username": "newuser", "password": "pass", "is_superuser": False},
+        headers=headers,
+    )
+    assert res.status_code == 200
+    user_id = res.json()["id"]
 
         # list users
-        res = await ac.get("/users/", headers=headers)
-        assert any(u["id"] == user_id for u in res.json())
+    res = client.get("/users/", headers=headers)
+    assert any(u["id"] == user_id for u in res.json())
 
         # delete user
-        res = await ac.delete(f"/users/{user_id}", headers=headers)
-        assert res.status_code == 204
+    res = client.delete(f"/users/{user_id}", headers=headers)
+    assert res.status_code == 204
