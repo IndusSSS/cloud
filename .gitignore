@@ -1,0 +1,19 @@
+# .gitignore  (put at repo root)
+__pycache__/
+.venv/
+*.pyc
+*.pyo
+*.so
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.db
+*.sqlite
+*.pem
+*.crt
+*.key
+.env
+.env.*
+__pycache__/\n.venv/\n*.pyc\n*.png\n*.svg
