@@ -15,12 +15,12 @@ def create_app() -> FastAPI:
         SQLModel.metadata.create_all(engine)
         with Session(engine) as session:
             admin = session.exec(
-                select(User).where(User.email == "admin@smartsecurity.solutions")
+                select(User).where(User.username == "admin")
             ).first()
             if not admin:
                 session.add(
                     User(
-                        email="admin@smartsecurity.solutions",
+                        username="admin",
                         hashed_password=get_password_hash("admin123"),
                         is_superuser=True,
                     )

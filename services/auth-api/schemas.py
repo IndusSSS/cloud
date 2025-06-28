@@ -1,15 +1,15 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 
 
 class UserCreate(BaseModel):
-    email: EmailStr
+    username: str
     password: str
     is_superuser: bool = False
 
 
 class UserRead(BaseModel):
     id: int
-    email: EmailStr
+    username: str
     is_superuser: bool
 
     class Config:
@@ -20,3 +20,8 @@ class Token(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
+
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str

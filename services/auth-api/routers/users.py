@@ -15,12 +15,12 @@ def create_user(
     session: Session = Depends(get_session),
     _: User = Depends(require_super_admin),
 ) -> User:
-    if session.exec(select(User).where(User.email == data.email)).first():
+    if session.exec(select(User).where(User.username == data.username)).first():
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Username already registered"
         )
     user = User(
-        email=data.email,
+        username=data.username,
         hashed_password=get_password_hash(data.password),
         is_superuser=data.is_superuser,
     )

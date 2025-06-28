@@ -2,7 +2,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from httpx import ASGITransport, AsyncClient
+from fastapi.testclient import TestClient
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
@@ -15,12 +15,10 @@ from sqlmodel import SQLModel, Session, select
 app = create_app()
 SQLModel.metadata.create_all(engine)
 with Session(engine) as session:
-    if not session.exec(
-        select(User).where(User.email == "admin@smartsecurity.solutions")
-    ).first():
+    if not session.exec(select(User).where(User.username == "admin")).first():
         session.add(
             User(
-                email="admin@smartsecurity.solutions",
+                username="admin",
                 hashed_password=get_password_hash("admin123"),
                 is_superuser=True,
             )
@@ -28,14 +26,12 @@ with Session(engine) as session:
         session.commit()
 
 
-@pytest.mark.asyncio
-async def test_login_and_refresh() -> None:
-    transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        res = await ac.post(
-            "/login",
-            json={"email": "admin@smartsecurity.solutions", "password": "admin123"},
-        )
+def test_login_and_refresh() -> None:
+    client = TestClient(app)
+    res = client.post(
+        "/login",
+        json={"username": "admin", "password": "admin123"},
+    )
     assert res.status_code == 200
     data = res.json()
     assert "access_token" in data and "refresh_token" in data
@@ -44,9 +40,17 @@ async def test_login_and_refresh() -> None:
     assert access["type"] == "access"
     assert refresh["type"] == "refresh"
 
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
-        res2 = await ac.post("/refresh", json={"refresh_token": data["refresh_token"]})
+    res2 = client.post("/refresh", json={"refresh_token": data["refresh_token"]})
     assert res2.status_code == 200
     new_access = res2.json()["access_token"]
     decoded = decode_token(new_access)
     assert decoded["type"] == "access"
+
+
+def test_login_failure() -> None:
+    client = TestClient(app)
+    res = client.post(
+        "/login",
+        json={"username": "admin", "password": "wrong"},
+    )
+    assert res.status_code == 401
