@@ -1,8 +1,8 @@
-version: "3.9"
-
 services:
   traefik:
     image: traefik:v2.10
+    environment:
+      - TRAEFIK_DASHBOARD_PASSWORD_HASH=$$apr1$$M1J8j...
     command:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
