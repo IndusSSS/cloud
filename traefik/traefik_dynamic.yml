@@ -1,0 +1,15 @@
+http:
+  middlewares:
+    dashboard-auth:
+      basicAuth:
+        usersFile: /etc/traefik/htpasswd
+  routers:
+    traefik-dashboard:
+      rule: Host(`admin.smartsecurity.solutions`)
+      entryPoints:
+        - websecure
+      service: api@internal
+      middlewares:
+        - dashboard-auth
+      tls:
+        certResolver: letsencrypt

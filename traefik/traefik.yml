@@ -10,6 +10,8 @@ entryPoints:
 providers:
   docker:
     exposedByDefault: false
+  file:
+    filename: /etc/traefik/traefik_dynamic.yml
 
 certificatesResolvers:
   letsencrypt:

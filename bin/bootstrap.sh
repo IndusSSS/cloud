@@ -29,6 +29,12 @@ FOO
   fi
 fi
 
+# ── 2b. Create Traefik htpasswd if absent ───────────────────────────
+if [[ ! -f traefik/htpasswd ]]; then
+  echo ">>> Creating traefik/htpasswd"
+  htpasswd -bc traefik/htpasswd admin admin123
+fi
+
 # ── 3. Ensure SECRET_KEY is not placeholder ─────────────────────────
 if grep -q "YOUR_SHARED_SECRET\|REPLACE_ME" .env; then
   sed -i "s/SECRET_KEY=.*/SECRET_KEY=$(openssl rand -hex 32)/" .env

@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      - name: Install dependencies
+        run: |
+          cd services/auth-api
+          poetry install --no-interaction
+      - name: Lint
+        run: |
+          cd services/auth-api
+          poetry run ruff . && poetry run mypy --strict .
+      - name: Test
+        run: |
+          cd services/auth-api
+          poetry run pytest -q
+      - name: Build image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/auth-api:latest services/auth-api
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push image
+        run: |
+          docker push ghcr.io/${{ github.repository }}/auth-api:latest

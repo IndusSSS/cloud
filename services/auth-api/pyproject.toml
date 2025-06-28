@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "auth-api"
+version = "0.1.0"
+description = "Authentication microservice"
+authors = ["SmartSecurity"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.110"
+uvicorn = {extras = ["standard"], version = "^0.29"}
+python-jose = "^3.3"
+passlib = {extras = ["bcrypt"], version="^1.7"}
+sqlmodel = "^0.0.16"
+pydantic = {extras=["email"], version="^2.7"}
+httpx = "^0.27"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1"
+pytest-asyncio = "^0.23"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
