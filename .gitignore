@@ -1,4 +1,8 @@
-# .gitignore  (put at repo root)
+# Keep env.example templates in Git
+!.env.example
+!*/env.example
+
+# ───────────────────────────────────────────────────────────────────────
 __pycache__/
 .venv/
 *.pyc
@@ -14,6 +18,8 @@ __pycache__/
 *.pem
 *.crt
 *.key
+
+# Local envs (ignore the real .env, but not the examples)
 .env
-.env.*
-__pycache__/\n.venv/\n*.pyc\n*.png\n*.svg
+.env.local
+
