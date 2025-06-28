@@ -1,5 +1,7 @@
- services:
+version: "3.9"
 
+services:
+  # ────────────────────── Reverse-proxy ─────────────────────
   traefik:
     image: traefik:v2.10
     command:
@@ -13,9 +15,9 @@
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
       - "--api.dashboard=true"
       - "--log.level=INFO"
-    environment:          # ← MAP style only
+    environment:            # ← mapping style (indent 6 spaces)
       TRAEFIK_DASHBOARD_USER: admin
-      TRAEFIK_DASHBOARD_PASSWORD_HASH: '$apr1$M1J8j...'   # quoted, no var-expansion
+      TRAEFIK_DASHBOARD_PASSWORD_HASH: '$apr1$M1J8j...'   # quoted ⇒ no env-expansion
     ports:
       - "80:80"
       - "443:443"
@@ -23,8 +25,10 @@
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "./traefik/traefik.yml:/etc/traefik/traefik.yml:ro"
       - "letsencrypt:/letsencrypt"
-    networks: [web]
+    networks:
+      - web
 
+  # ────────────────────── Core services ─────────────────────
   postgres:
     image: postgres:15
     environment:
@@ -38,37 +42,42 @@
       interval: 10s
       timeout: 5s
       retries: 5
-    networks: [internal]
+    networks:
+      - internal
 
   redis:
     image: redis:7
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - redisdata:/data
-    networks: [internal]
+    networks:
+      - internal
 
   minio:
     image: minio/minio:latest
     command: server /data --console-address ":9001"
     environment:
-      MINIO_ROOT_USER:  minioadmin
+      MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
     volumes:
       - miniodata:/data
     ports:
       - "9000:9000"
       - "9001:9001"
-    networks: [internal]
+    networks:
+      - internal
 
-  # ─────────────────────── API MICROSERVICES ────────────────────────
+  # ────────────────── API micro-services (stubs) ─────────────
   gateway:
     build: ./services/gateway
     env_file: ./services/gateway/env.example
-    networks: [internal, web]
     depends_on:
       - auth
       - device
       - metrics
+    networks:
+      - internal
+      - web
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.gateway.rule=Host(`api.smartsecurity.solutions`)"
@@ -78,31 +87,34 @@
   auth:
     build: ./services/auth-api
     env_file: ./services/auth-api/env.example
-    networks: [internal]
     depends_on:
       - postgres
       - redis
+    networks:
+      - internal
 
   device:
     build: ./services/device-api
     env_file: ./services/device-api/env.example
-    networks: [internal]
     depends_on:
       - postgres
+    networks:
+      - internal
 
   metrics:
     build: ./services/metrics-api
     env_file: ./services/metrics-api/env.example
-    networks: [internal]
     depends_on:
       - postgres
       - redis
+    networks:
+      - internal
 
-# ────────────────────────── Networks / Vols ─────────────────────────
+# ────────────────────────── Networks & vols ─────────────────────────
 networks:
-  web:      {}          # exposed to Traefik
+  web: {}                 # exposed to Traefik
   internal:
-    internal: true      # internal-only traffic
+    internal: true
 
 volumes:
   pgdata:
