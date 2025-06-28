@@ -20,6 +20,8 @@ pycache/
 *.pem
 *.crt
 *.key
+!traefik/htpasswd
+*.htpasswd.local
 
 # Local envs (ignore the real .env, but not the examples)
 .env

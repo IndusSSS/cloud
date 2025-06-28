@@ -6,13 +6,13 @@ This repository contains the containerised IoT backend for **SmartSecurity.Solut
 
 1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) on your host.
 2. Clone this repository and change into the project directory.
-3. Launch the complete stack:
+3. Run the helper script to create env files and the Traefik dashboard login:
 
 ```bash
-docker compose up -d
+bin/bootstrap.sh
 ```
 
-Traefik will obtain certificates from Let's Encrypt automatically. The API gateway will be available at `https://api.smartsecurity.solutions` once DNS points to your host.
+Traefik will obtain certificates from Let's Encrypt automatically. The API gateway will be available at `https://api.smartsecurity.solutions` and the dashboard at `https://admin.smartsecurity.solutions` once DNS points to your host.
 
 ### Services
 
