@@ -17,7 +17,7 @@ services:
       - "--log.level=INFO"
     environment:            # ← mapping style (indent 6 spaces)
       TRAEFIK_DASHBOARD_USER: admin
-      TRAEFIK_DASHBOARD_PASSWORD_HASH: '$apr1$M1J8j...'   # quoted ⇒ no env-expansion
+      TRAEFIK_DASHBOARD_PASSWORD_HASH: '$$apr1$$M1J8j...'   # quoted ⇒ no env-expansion
     ports:
       - "80:80"
       - "443:443"
