@@ -4,7 +4,9 @@
 
 # ───────────────────────────────────────────────────────────────────────
 __pycache__/
+pycache/
 .venv/
+# Ignore Python bytecode
 *.pyc
 *.pyo
 *.so
