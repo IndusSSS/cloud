@@ -84,11 +84,10 @@ services:
   auth:
     build: ./services/auth-api
     env_file: ./services/auth-api/env.example
+    networks: [internal]
     depends_on:
       - postgres
       - redis
-    networks:
-      - internal
 
   device:
     build: ./services/device-api
