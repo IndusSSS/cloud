@@ -1,0 +1,1630 @@
+diff --git a/.gitignore b/.gitignore
+index e69de29..9586d38 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -0,0 +1,184 @@
++# Byte-compiled / optimized / DLL files
++__pycache__/
++*.py[cod]
++*$py.class
++
++# C extensions
++*.so
++
++# Distribution / packaging
++.Python
++build/
++develop-eggs/
++dist/
++downloads/
++eggs/
++.eggs/
++lib/
++lib64/
++parts/
++sdist/
++var/
++wheels/
++share/python-wheels/
++*.egg-info/
++.installed.cfg
++*.egg
++MANIFEST
++
++# PyInstaller
++#  Usually these files are written by a python script from a template
++#  before PyInstaller builds the exe, so as to inject date/other infos into it.
++*.manifest
++*.spec
++
++# Installer logs
++pip-log.txt
++pip-delete-this-directory.txt
++
++# Unit test / coverage reports
++htmlcov/
++.tox/
++.nox/
++.coverage
++.coverage.*
++.cache
++nosetests.xml
++coverage.xml
++*.cover
++*.py,cover
++.hypothesis/
++.pytest_cache/
++cover/
++
++# Translations
++*.mo
++*.pot
++
++# Django stuff:
++*.log
++local_settings.py
++db.sqlite3
++db.sqlite3-journal
++
++# Flask stuff:
++instance/
++.webassets-cache
++
++# Scrapy stuff:
++.scrapy
++
++# Sphinx documentation
++docs/_build/
++
++# PyBuilder
++.pybuilder/
++target/
++
++# Jupyter Notebook
++.ipynb_checkpoints
++
++# IPython
++profile_default/
++ipython_config.py
++
++# pyenv
++#   For a library or package, you might want to ignore these files since the code is
++#   intended to run in multiple environments; otherwise, check them in:
++# .python-version
++
++# pipenv
++#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
++#   However, in case of collaboration, if having platform-specific dependencies or dependencies
++#   having no cross-platform support, pipenv may install dependencies that don't work, or not
++#   install all needed dependencies.
++#Pipfile.lock
++
++# poetry
++#   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
++#   This is especially recommended for binary packages to ensure reproducibility, and is more
++#   commonly ignored for libraries.
++#   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
++#poetry.lock
++
++# pdm
++#   Similar to Pipfile.lock, it is generally recommended to include pdm.lock in version control.
++#pdm.lock
++#   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
++#   in version control.
++#   https://pdm.fming.dev/#use-with-ide
++.pdm.toml
++
++# PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
++__pypackages__/
++
++# Celery stuff
++celerybeat-schedule
++celerybeat.pid
++
++# SageMath parsed files
++*.sage.py
++
++# Environments
++.env
++.venv
++env/
++venv/
++ENV/
++env.bak/
++venv.bak/
++
++# Spyder project settings
++.spyderproject
++.spyproject
++
++# Rope project settings
++.ropeproject
++
++# mkdocs documentation
++/site
++
++# mypy
++.mypy_cache/
++.dmypy.json
++dmypy.json
++
++# Pyre type checker
++.pyre/
++
++# pytype static type analyzer
++.pytype/
++
++# Cython debug symbols
++cython_debug/
++
++# PyCharm
++#  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
++#  be added to the global gitignore or merged into this project gitignore.  For a PyCharm
++#  project, it is recommended to include the following files:
++#  .idea/
++#  *.iml
++#  *.ipr
++#  *.iws
++
++# IDE
++.vscode/
++.idea/
++*.swp
++*.swo
++*~
++
++# OS
++.DS_Store
++.DS_Store?
++._*
++.Spotlight-V100
++.Trashes
++ehthumbs.db
++Thumbs.db
++
++# Application specific
++*.db
++*.sqlite
++logs/
++*.log
+\ No newline at end of file
+diff --git a/.pre-commit-config.yaml b/.pre-commit-config.yaml
+index e69de29..36d9e20 100644
+--- a/.pre-commit-config.yaml
++++ b/.pre-commit-config.yaml
+@@ -0,0 +1,29 @@
++# .pre-commit-config.yaml
++repos:
++  - repo: https://github.com/pre-commit/pre-commit-hooks
++    rev: v4.5.0
++    hooks:
++      - id: trailing-whitespace
++      - id: end-of-file-fixer
++      - id: check-yaml
++      - id: check-added-large-files
++      - id: check-merge-conflict
++      - id: debug-statements
++
++  - repo: https://github.com/psf/black
++    rev: 24.4.0
++    hooks:
++      - id: black
++        language_version: python3.12
++
++  - repo: https://github.com/astral-sh/ruff-pre-commit
++    rev: v0.4.0
++    hooks:
++      - id: ruff
++        args: [--fix, --exit-non-zero-on-fix]
++
++  - repo: https://github.com/pre-commit/mirrors-mypy
++    rev: v1.10.0
++    hooks:
++      - id: mypy
++        additional_dependencies: [types-all]
+\ No newline at end of file
+diff --git a/Makefile b/Makefile
+index e69de29..2845051 100644
+--- a/Makefile
++++ b/Makefile
+@@ -0,0 +1,50 @@
++# Makefile
++.PHONY: help install test lint format clean run dev docker-build docker-run
++
++help: ## Show this help message
++	@echo 'Usage: make [target]'
++	@echo ''
++	@echo 'Targets:'
++	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  %-15s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
++
++install: ## Install dependencies
++	poetry install
++
++test: ## Run tests
++	pytest -v
++
++test-cov: ## Run tests with coverage
++	pytest --cov=app --cov-report=html
++
++lint: ## Run linting
++	ruff check .
++	mypy app/
++
++format: ## Format code
++	black .
++	ruff check --fix .
++
++clean: ## Clean up generated files
++	find . -type d -name __pycache__ -delete
++	find . -type f -name "*.pyc" -delete
++	rm -rf .pytest_cache
++	rm -rf htmlcov
++	rm -rf .coverage
++
++run: ## Run the application
++	uvicorn app.main:app --host 0.0.0.0 --port 8000
++
++dev: ## Run in development mode
++	uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
++
++docker-build: ## Build Docker image
++	docker build -t smartsecurity-cloud .
++
++docker-run: ## Run with Docker Compose
++	docker-compose up -d
++
++docker-stop: ## Stop Docker containers
++	docker-compose down
++
++setup: install ## Setup development environment
++	pre-commit install
+\ No newline at end of file
+diff --git a/README.md b/README.md
+index e2f5aeb..cbba343 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1,126 @@
+-# cloud
+\ No newline at end of file
++# SmartSecurity.Solutions Cloud Micro-service
++
++A FastAPI-based micro-service for IoT device management and data ingestion in the SmartSecurity.Solutions platform.
++
++## Features
++
++- **User Authentication**: JWT-based authentication with Argon2 password hashing
++- **Device Management**: CRUD operations for IoT devices
++- **Data Ingestion**: REST API for receiving sensor data from devices
++- **Real-time Processing**: Background worker for MQTT message processing
++- **Scalable Architecture**: Async database operations with PostgreSQL
++- **Security First**: Secure by design with proper authentication and authorization
++
++## Quick Start
++
++### Prerequisites
++
++- Python 3.12+
++- Poetry (dependency management)
++- PostgreSQL
++- Redis (optional, for caching)
++
++### Installation
++
++1. Clone the repository:
++```bash
++git clone <repository-url>
++cd cloud
++```
++
++2. Install dependencies:
++```bash
++make install
++```
++
++3. Set up environment variables:
++```bash
++cp .env.example .env
++# Edit .env with your configuration
++```
++
++4. Run the application:
++```bash
++make dev
++```
++
++The API will be available at `http://localhost:8000/api/v1/docs`
++
++## API Documentation
++
++### Authentication
++
++- `POST /api/v1/auth/login` - User login
++- `POST /api/v1/auth/register` - User registration
++- `GET /api/v1/auth/me` - Get current user info
++
++### Device Management
++
++- `GET /api/v1/devices` - List devices
++- `POST /api/v1/devices` - Create device
++- `GET /api/v1/devices/{id}` - Get device details
++- `PUT /api/v1/devices/{id}` - Update device
++
++### Data Ingestion
++
++- `POST /api/v1/ingest` - Ingest sensor data
++- `GET /api/v1/sensors/{device_id}` - Get device sensor readings
++
++### User Management
++
++- `GET /api/v1/users` - List users (admin only)
++- `GET /api/v1/users/{id}` - Get user details
++- `PUT /api/v1/users/{id}` - Update user (admin only)
++
++## Development
++
++### Running Tests
++
++```bash
++make test
++```
++
++### Code Quality
++
++```bash
++make lint    # Run linting
++make format  # Format code
++```
++
++### Docker
++
++```bash
++make docker-build  # Build image
++make docker-run    # Run with docker-compose
++```
++
++## Architecture
++
++The application follows a modular architecture:
++
++- **`app/core/`** - Configuration and core settings
++- **`app/models/`** - SQLModel database models
++- **`app/api/`** - FastAPI endpoints and dependencies
++- **`app/services/`** - Business logic services
++- **`app/utils/`** - Utility functions and helpers
++- **`app/worker.py`** - Background task processing
++
++## Security
++
++- JWT tokens for API authentication
++- Argon2 password hashing
++- Role-based access control
++- Input validation and sanitization
++- Secure database connections
++
++## Contributing
++
++1. Fork the repository
++2. Create a feature branch
++3. Make your changes
++4. Run tests and linting
++5. Submit a pull request
++
++## License
++
++This project is proprietary software owned by SmartSecurity.Solutions.
+\ No newline at end of file
+diff --git a/app/__init__.py b/app/__init__.py
+index e69de29..e02ba32 100644
+--- a/app/__init__.py
++++ b/app/__init__.py
+@@ -0,0 +1,10 @@
++# app/__init__.py
++"""
++SmartSecurity.Solutions Cloud Micro-service.
++
++A FastAPI-based micro-service for IoT device management and data ingestion.
++"""
++
++__version__ = "0.1.0"
++__author__ = "SmartSecurity.Solutions"
++__description__ = "Cloud micro-service for IoT security management"
+\ No newline at end of file
+diff --git a/app/api/__init__.py b/app/api/__init__.py
+index e69de29..26744dc 100644
+--- a/app/api/__init__.py
++++ b/app/api/__init__.py
+@@ -0,0 +1,6 @@
++# app/api/__init__.py
++"""
++API modules.
++
++FastAPI endpoints, dependencies, and routing.
++"""
+\ No newline at end of file
+diff --git a/app/api/deps.py b/app/api/deps.py
+index e69de29..fe9b435 100644
+--- a/app/api/deps.py
++++ b/app/api/deps.py
+@@ -0,0 +1,74 @@
++# app/api/deps.py
++"""
++API dependencies for FastAPI endpoints.
++
++• Database session dependency injection.
++• Authentication and authorization dependencies.
++• Common request/response utilities.
++"""
++
++from fastapi import Depends, HTTPException, status
++from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from app.db.session import get_session
++from app.models.user import User
++from app.utils.security import verify_token
++
++# Security scheme for JWT tokens
++security = HTTPBearer()
++
++
++async def get_current_user(
++    session: AsyncSession = Depends(get_session),
++    credentials: HTTPAuthorizationCredentials = Depends(security)
++) -> User:
++    """Get the current authenticated user from JWT token."""
++    token = credentials.credentials
++    payload = verify_token(token)
++    
++    if payload is None:
++        raise HTTPException(
++            status_code=status.HTTP_401_UNAUTHORIZED,
++            detail="Could not validate credentials",
++            headers={"WWW-Authenticate": "Bearer"},
++        )
++    
++    user_id = payload.get("sub")
++    if user_id is None:
++        raise HTTPException(
++            status_code=status.HTTP_401_UNAUTHORIZED,
++            detail="Could not validate credentials",
++            headers={"WWW-Authenticate": "Bearer"},
++        )
++    
++    # Get user from database
++    from sqlmodel import select
++    result = await session.exec(select(User).where(User.id == user_id))
++    user = result.first()
++    
++    if user is None:
++        raise HTTPException(
++            status_code=status.HTTP_401_UNAUTHORIZED,
++            detail="User not found",
++            headers={"WWW-Authenticate": "Bearer"},
++        )
++    
++    return user
++
++
++async def get_current_active_user(current_user: User = Depends(get_current_user)) -> User:
++    """Get the current active user."""
++    if not current_user.is_active:
++        raise HTTPException(status_code=400, detail="Inactive user")
++    return current_user
++
++
++async def get_current_admin_user(current_user: User = Depends(get_current_user)) -> User:
++    """Get the current admin user."""
++    if not current_user.is_admin:
++        raise HTTPException(
++            status_code=status.HTTP_403_FORBIDDEN,
++            detail="Not enough permissions"
++        )
++    return current_user
+\ No newline at end of file
+diff --git a/app/api/v1/__init__.py b/app/api/v1/__init__.py
+index e69de29..61da53b 100644
+--- a/app/api/v1/__init__.py
++++ b/app/api/v1/__init__.py
+@@ -0,0 +1,6 @@
++# app/api/v1/__init__.py
++"""
++API v1 endpoints.
++
++Version 1 of the REST API endpoints.
++"""
+\ No newline at end of file
+diff --git a/app/api/v1/endpoints/__init__.py b/app/api/v1/endpoints/__init__.py
+index e69de29..b2a5b22 100644
+--- a/app/api/v1/endpoints/__init__.py
++++ b/app/api/v1/endpoints/__init__.py
+@@ -0,0 +1,6 @@
++# app/api/v1/endpoints/__init__.py
++"""
++API endpoint modules.
++
++REST API endpoint definitions and routing.
++"""
+\ No newline at end of file
+diff --git a/app/api/v1/endpoints/auth.py b/app/api/v1/endpoints/auth.py
+index e69de29..bd14739 100644
+--- a/app/api/v1/endpoints/auth.py
++++ b/app/api/v1/endpoints/auth.py
+@@ -0,0 +1,90 @@
++# app/api/v1/endpoints/auth.py
++"""
++Authentication endpoints.
++
++• User login and token generation.
++• Token refresh and validation.
++• User registration (admin only).
++"""
++
++from typing import Any
++from fastapi import APIRouter, Depends, HTTPException, status
++from fastapi.security import OAuth2PasswordRequestForm
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from app.api.deps import get_session, get_current_user
++from app.models.user import User
++from app.services.auth import authenticate_user, create_user, create_user_token
++
++router = APIRouter()
++
++
++@router.post("/login")
++async def login(
++    form_data: OAuth2PasswordRequestForm = Depends(),
++    session: AsyncSession = Depends(get_session)
++) -> Any:
++    """Authenticate user and return access token."""
++    user = await authenticate_user(session, form_data.username, form_data.password)
++    if not user:
++        raise HTTPException(
++            status_code=status.HTTP_401_UNAUTHORIZED,
++            detail="Incorrect username or password",
++            headers={"WWW-Authenticate": "Bearer"},
++        )
++    
++    access_token = create_user_token(user)
++    return {
++        "access_token": access_token,
++        "token_type": "bearer",
++        "user_id": str(user.id),
++        "username": user.username,
++        "is_admin": user.is_admin
++    }
++
++
++@router.post("/register")
++async def register(
++    username: str,
++    email: str,
++    password: str,
++    session: AsyncSession = Depends(get_session)
++) -> Any:
++    """Register a new user account."""
++    # Check if user already exists
++    from sqlmodel import select
++    existing_user = await session.exec(
++        select(User).where(
++            (User.username == username) | (User.email == email)
++        )
++    ).first()
++    
++    if existing_user:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Username or email already registered"
++        )
++    
++    user = await create_user(session, username, email, password)
++    return {
++        "id": str(user.id),
++        "username": user.username,
++        "email": user.email,
++        "is_active": user.is_active
++    }
++
++
++@router.get("/me")
++async def get_current_user_info(
++    current_user: User = Depends(get_current_user)
++) -> Any:
++    """Get current user information."""
++    return {
++        "id": str(current_user.id),
++        "username": current_user.username,
++        "email": current_user.email,
++        "is_active": current_user.is_active,
++        "is_admin": current_user.is_admin,
++        "created_at": current_user.created_at,
++        "last_login": current_user.last_login
++    }
+\ No newline at end of file
+diff --git a/app/api/v1/endpoints/devices.py b/app/api/v1/endpoints/devices.py
+index e69de29..f20c9c4 100644
+--- a/app/api/v1/endpoints/devices.py
++++ b/app/api/v1/endpoints/devices.py
+@@ -0,0 +1,149 @@
++# app/api/v1/endpoints/devices.py
++"""
++Device management endpoints.
++
++• CRUD operations for IoT devices.
++• Device status monitoring.
++• Device registration and configuration.
++"""
++
++from typing import Any, List
++from fastapi import APIRouter, Depends, HTTPException, status
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from app.api.deps import get_session, get_current_active_user
++from app.models.device import Device
++from app.models.user import User
++
++router = APIRouter()
++
++
++@router.get("/", response_model=List[dict])
++async def get_devices(
++    skip: int = 0,
++    limit: int = 100,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_active_user)
++) -> Any:
++    """Get list of devices."""
++    from sqlmodel import select
++    result = await session.exec(select(Device).offset(skip).limit(limit))
++    devices = result.all()
++    
++    return [
++        {
++            "id": str(device.id),
++            "name": device.name,
++            "description": device.description,
++            "is_active": device.is_active
++        }
++        for device in devices
++    ]
++
++
++@router.post("/")
++async def create_device(
++    name: str,
++    description: str = None,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_active_user)
++) -> Any:
++    """Create a new device."""
++    device = Device(
++        name=name,
++        description=description
++    )
++    session.add(device)
++    await session.commit()
++    await session.refresh(device)
++    
++    return {
++        "id": str(device.id),
++        "name": device.name,
++        "description": device.description,
++        "is_active": device.is_active
++    }
++
++
++@router.get("/{device_id}")
++async def get_device(
++    device_id: str,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_active_user)
++) -> Any:
++    """Get device by ID."""
++    from sqlmodel import select
++    from uuid import UUID
++    
++    try:
++        device_uuid = UUID(device_id)
++    except ValueError:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Invalid device ID format"
++        )
++    
++    result = await session.exec(select(Device).where(Device.id == device_uuid))
++    device = result.first()
++    
++    if not device:
++        raise HTTPException(
++            status_code=status.HTTP_404_NOT_FOUND,
++            detail="Device not found"
++        )
++    
++    return {
++        "id": str(device.id),
++        "name": device.name,
++        "description": device.description,
++        "is_active": device.is_active
++    }
++
++
++@router.put("/{device_id}")
++async def update_device(
++    device_id: str,
++    name: str = None,
++    description: str = None,
++    is_active: bool = None,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_active_user)
++) -> Any:
++    """Update device information."""
++    from sqlmodel import select
++    from uuid import UUID
++    
++    try:
++        device_uuid = UUID(device_id)
++    except ValueError:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Invalid device ID format"
++        )
++    
++    result = await session.exec(select(Device).where(Device.id == device_uuid))
++    device = result.first()
++    
++    if not device:
++        raise HTTPException(
++            status_code=status.HTTP_404_NOT_FOUND,
++            detail="Device not found"
++        )
++    
++    if name is not None:
++        device.name = name
++    if description is not None:
++        device.description = description
++    if is_active is not None:
++        device.is_active = is_active
++    
++    session.add(device)
++    await session.commit()
++    await session.refresh(device)
++    
++    return {
++        "id": str(device.id),
++        "name": device.name,
++        "description": device.description,
++        "is_active": device.is_active
++    }
+\ No newline at end of file
+diff --git a/app/api/v1/endpoints/ingest.py b/app/api/v1/endpoints/ingest.py
+index e69de29..389f653 100644
+--- a/app/api/v1/endpoints/ingest.py
++++ b/app/api/v1/endpoints/ingest.py
+@@ -0,0 +1,120 @@
++# app/api/v1/endpoints/ingest.py
++"""
++Data ingestion endpoints.
++
++• Receive sensor data from IoT devices.
++• Store sensor readings in database.
++• Validate and process incoming data.
++"""
++
++from typing import Any
++from fastapi import APIRouter, Depends, HTTPException, status
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from app.api.deps import get_session
++from app.models.sensor import Sensor
++from app.models.device import Device
++
++router = APIRouter()
++
++
++@router.post("/ingest")
++async def ingest_sensor_data(
++    device_id: str,
++    sensor_type: str,
++    value: float,
++    unit: str = "",
++    metadata: str = None,
++    session: AsyncSession = Depends(get_session)
++) -> Any:
++    """Ingest sensor data from IoT devices."""
++    from sqlmodel import select
++    from uuid import UUID
++    
++    try:
++        device_uuid = UUID(device_id)
++    except ValueError:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Invalid device ID format"
++        )
++    
++    # Verify device exists and is active
++    result = await session.exec(select(Device).where(Device.id == device_uuid))
++    device = result.first()
++    
++    if not device:
++        raise HTTPException(
++            status_code=status.HTTP_404_NOT_FOUND,
++            detail="Device not found"
++        )
++    
++    if not device.is_active:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Device is not active"
++        )
++    
++    # Create sensor reading
++    sensor = Sensor(
++        device_id=device_uuid,
++        sensor_type=sensor_type,
++        value=value,
++        unit=unit,
++        sensor_metadata=metadata
++    )
++    
++    session.add(sensor)
++    await session.commit()
++    await session.refresh(sensor)
++    
++    return {
++        "id": str(sensor.id),
++        "device_id": str(sensor.device_id),
++        "sensor_type": sensor.sensor_type,
++        "value": sensor.value,
++        "unit": sensor.unit,
++        "timestamp": sensor.timestamp
++    }
++
++
++@router.get("/sensors/{device_id}")
++async def get_device_sensors(
++    device_id: str,
++    sensor_type: str = None,
++    limit: int = 100,
++    session: AsyncSession = Depends(get_session)
++) -> Any:
++    """Get sensor readings for a specific device."""
++    from sqlmodel import select
++    from uuid import UUID
++    
++    try:
++        device_uuid = UUID(device_id)
++    except ValueError:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Invalid device ID format"
++        )
++    
++    # Build query
++    query = select(Sensor).where(Sensor.device_id == device_uuid)
++    if sensor_type:
++        query = query.where(Sensor.sensor_type == sensor_type)
++    
++    query = query.order_by(Sensor.timestamp.desc()).limit(limit)
++    
++    result = await session.exec(query)
++    sensors = result.all()
++    
++    return [
++        {
++            "id": str(sensor.id),
++            "sensor_type": sensor.sensor_type,
++            "value": sensor.value,
++            "unit": sensor.unit,
++            "timestamp": sensor.timestamp,
++            "metadata": sensor.sensor_metadata
++        }
++        for sensor in sensors
++    ]
+\ No newline at end of file
+diff --git a/app/api/v1/endpoints/users.py b/app/api/v1/endpoints/users.py
+index e69de29..1a2fa2e 100644
+--- a/app/api/v1/endpoints/users.py
++++ b/app/api/v1/endpoints/users.py
+@@ -0,0 +1,133 @@
++# app/api/v1/endpoints/users.py
++"""
++User management endpoints.
++
++• CRUD operations for user accounts.
++• User profile management.
++• Admin-only user administration.
++"""
++
++from typing import Any, List
++from fastapi import APIRouter, Depends, HTTPException, status
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from app.api.deps import get_session, get_current_active_user, get_current_admin_user
++from app.models.user import User
++
++router = APIRouter()
++
++
++@router.get("/", response_model=List[dict])
++async def get_users(
++    skip: int = 0,
++    limit: int = 100,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_admin_user)
++) -> Any:
++    """Get list of users (admin only)."""
++    from sqlmodel import select
++    result = await session.exec(select(User).offset(skip).limit(limit))
++    users = result.all()
++    
++    return [
++        {
++            "id": str(user.id),
++            "username": user.username,
++            "email": user.email,
++            "is_active": user.is_active,
++            "is_admin": user.is_admin,
++            "created_at": user.created_at
++        }
++        for user in users
++    ]
++
++
++@router.get("/{user_id}")
++async def get_user(
++    user_id: str,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_active_user)
++) -> Any:
++    """Get user by ID."""
++    from sqlmodel import select
++    from uuid import UUID
++    
++    try:
++        user_uuid = UUID(user_id)
++    except ValueError:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Invalid user ID format"
++        )
++    
++    result = await session.exec(select(User).where(User.id == user_uuid))
++    user = result.first()
++    
++    if not user:
++        raise HTTPException(
++            status_code=status.HTTP_404_NOT_FOUND,
++            detail="User not found"
++        )
++    
++    # Users can only see their own profile unless they're admin
++    if not current_user.is_admin and current_user.id != user_uuid:
++        raise HTTPException(
++            status_code=status.HTTP_403_FORBIDDEN,
++            detail="Not enough permissions"
++        )
++    
++    return {
++        "id": str(user.id),
++        "username": user.username,
++        "email": user.email,
++        "is_active": user.is_active,
++        "is_admin": user.is_admin,
++        "created_at": user.created_at,
++        "last_login": user.last_login
++    }
++
++
++@router.put("/{user_id}")
++async def update_user(
++    user_id: str,
++    is_active: bool = None,
++    is_admin: bool = None,
++    session: AsyncSession = Depends(get_session),
++    current_user: User = Depends(get_current_admin_user)
++) -> Any:
++    """Update user status (admin only)."""
++    from sqlmodel import select
++    from uuid import UUID
++    
++    try:
++        user_uuid = UUID(user_id)
++    except ValueError:
++        raise HTTPException(
++            status_code=status.HTTP_400_BAD_REQUEST,
++            detail="Invalid user ID format"
++        )
++    
++    result = await session.exec(select(User).where(User.id == user_uuid))
++    user = result.first()
++    
++    if not user:
++        raise HTTPException(
++            status_code=status.HTTP_404_NOT_FOUND,
++            detail="User not found"
++        )
++    
++    if is_active is not None:
++        user.is_active = is_active
++    if is_admin is not None:
++        user.is_admin = is_admin
++    
++    session.add(user)
++    await session.commit()
++    await session.refresh(user)
++    
++    return {
++        "id": str(user.id),
++        "username": user.username,
++        "is_active": user.is_active,
++        "is_admin": user.is_admin
++    }
+\ No newline at end of file
+diff --git a/app/core/__init__.py b/app/core/__init__.py
+index e69de29..da46fa8 100644
+--- a/app/core/__init__.py
++++ b/app/core/__init__.py
+@@ -0,0 +1,6 @@
++# app/core/__init__.py
++"""
++Core application modules.
++
++Configuration, settings, and core functionality.
++"""
+\ No newline at end of file
+diff --git a/app/core/config.py b/app/core/config.py
+index e69de29..148dafa 100644
+--- a/app/core/config.py
++++ b/app/core/config.py
+@@ -0,0 +1,50 @@
++# app/core/config.py
++"""
++Application configuration settings.
++
++• Loads from environment variables with sensible defaults.
++• Validates required settings on startup.
++• Provides type-safe access to all config values.
++"""
++
++from typing import Optional
++from pydantic_settings import BaseSettings, SettingsConfigDict
++
++
++class Settings(BaseSettings):
++    """Application configuration with environment variable support."""
++    
++    model_config = SettingsConfigDict(
++        env_file=".env",
++        env_file_encoding="utf-8",
++        case_sensitive=False,
++        extra="ignore"
++    )
++    
++    # ─────────────────── API Settings ──────────────────── #
++    API_PREFIX: str = "/api/v1"
++    DEBUG: bool = False
++    HOST: str = "0.0.0.0"
++    PORT: int = 8000
++    
++    # ─────────────────── Database ──────────────────────── #
++    DATABASE_URL: str = "postgresql+asyncpg://user:pass@localhost/cloud"
++    DATABASE_ECHO: bool = False
++    
++    # ─────────────────── Security ──────────────────────── #
++    SECRET_KEY: str = "your-secret-key-change-in-production"
++    ALGORITHM: str = "HS256"
++    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
++    
++    # ─────────────────── Redis ─────────────────────────── #
++    REDIS_URL: str = "redis://localhost:6379/0"
++    
++    # ─────────────────── MQTT ──────────────────────────── #
++    MQTT_BROKER: str = "localhost"
++    MQTT_PORT: int = 1883
++    MQTT_USERNAME: Optional[str] = None
++    MQTT_PASSWORD: Optional[str] = None
++
++
++# Global settings instance
++settings = Settings()
+\ No newline at end of file
+diff --git a/app/db/__init__.py b/app/db/__init__.py
+index e69de29..748cd1f 100644
+--- a/app/db/__init__.py
++++ b/app/db/__init__.py
+@@ -0,0 +1,6 @@
++# app/db/__init__.py
++"""
++Database modules.
++
++Session management and database utilities.
++"""
+\ No newline at end of file
+diff --git a/app/db/session.py b/app/db/session.py
+index e69de29..eac63aa 100644
+--- a/app/db/session.py
++++ b/app/db/session.py
+@@ -0,0 +1,54 @@
++# app/db/session.py
++"""
++Database session management.
++
++• Creates async database engine with connection pooling.
++• Provides session factory for dependency injection.
++• Handles database URL configuration and connection setup.
++"""
++
++from sqlmodel import create_engine
++from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
++from sqlalchemy.orm import sessionmaker
++
++from app.core.config import settings
++
++
++# Create async engine for PostgreSQL (with fallback)
++try:
++    engine = create_async_engine(
++        settings.DATABASE_URL,
++        echo=settings.DATABASE_ECHO,
++        pool_pre_ping=True,
++        pool_recycle=300,
++    )
++    
++    # Create sync engine for migrations and startup tasks
++    sync_engine = create_engine(
++        settings.DATABASE_URL.replace("+asyncpg", ""),
++        echo=settings.DATABASE_ECHO,
++    )
++except ImportError:
++    # Fallback for development without asyncpg
++    engine = None
++    sync_engine = None
++
++# Session factory for dependency injection
++if engine is not None:
++    AsyncSessionLocal = sessionmaker(
++        engine, class_=AsyncSession, expire_on_commit=False
++    )
++else:
++    AsyncSessionLocal = None
++
++
++async def get_session() -> AsyncSession:
++    """Dependency to get database session."""
++    if AsyncSessionLocal is None:
++        raise RuntimeError("Database not configured")
++    
++    async with AsyncSessionLocal() as session:
++        try:
++            yield session
++        finally:
++            await session.close()
+\ No newline at end of file
+diff --git a/app/main.py b/app/main.py
+index b15b747..935bc6b 100644
+--- a/app/main.py
++++ b/app/main.py
+@@ -30,20 +30,23 @@ def create_app() -> FastAPI:
+     # ─────────────────── Startup tasks ──────────────────── #
+     @application.on_event("startup")
+     def _startup() -> None:
+-        # 1) Create tables (idempotent)
+-        SQLModel.metadata.create_all(engine)
++        # 1) Create tables (idempotent) - only if database is available
++        if engine is not None:
++            SQLModel.metadata.create_all(engine)
+ 
+-        # 2) Seed one admin user if table is empty
+-        with Session(engine) as session:
+-            user_exists = session.exec(select(User)).first()
+-            if not user_exists:
+-                admin = User(
+-                    username="admin",
+-                    email="admin@example.com",
+-                    hashed_password=hash_password("admin123"),
+-                )
+-                session.add(admin)
+-                session.commit()
++            # 2) Seed one admin user if table is empty
++            with Session(engine) as session:
++                user_exists = session.exec(select(User)).first()
++                if not user_exists:
++                    admin = User(
++                        username="admin",
++                        email="admin@example.com",
++                        hashed_password=hash_password("admin123"),
++                    )
++                    session.add(admin)
++                    session.commit()
++        else:
++            print("Warning: Database not configured, skipping startup tasks")
+ 
+     # ─────────────────── Health check ───────────────────── #
+     @application.get(f"{settings.API_PREFIX}/health", tags=["health"])
+diff --git a/app/models/__init__.py b/app/models/__init__.py
+index e69de29..0b1b87a 100644
+--- a/app/models/__init__.py
++++ b/app/models/__init__.py
+@@ -0,0 +1,12 @@
++# app/models/__init__.py
++"""
++Data models for the application.
++
++SQLModel-based database models and schemas.
++"""
++
++from .user import User
++from .device import Device
++from .sensor import Sensor
++
++__all__ = ["User", "Device", "Sensor"]
+\ No newline at end of file
+diff --git a/app/models/sensor.py b/app/models/sensor.py
+index e69de29..05d0878 100644
+--- a/app/models/sensor.py
++++ b/app/models/sensor.py
+@@ -0,0 +1,38 @@
++# app/models/sensor.py
++"""
++Sensor data model for IoT device readings.
++
++• Stores sensor measurements and metadata.
++• Links to devices and users for access control.
++• Supports various sensor types and data formats.
++"""
++
++from uuid import UUID, uuid4
++from datetime import datetime
++from typing import Optional
++from sqlmodel import SQLModel, Field
++
++
++class Sensor(SQLModel, table=True):
++    """
++    Sensor data table.
++    
++    • `id` – UUID primary key.
++    • `device_id` – foreign key to device.
++    • `sensor_type` – type of sensor (temperature, motion, etc.).
++    • `value` – sensor reading value.
++    • `unit` – measurement unit.
++    • `metadata` – additional sensor data as JSON.
++    • `timestamp` – when reading was taken.
++    • `created_at` – record creation time.
++    """
++    __tablename__ = "sensors"
++    
++    id: UUID = Field(default_factory=uuid4, primary_key=True, index=True)
++    device_id: UUID = Field(foreign_key="device.id", index=True)
++    sensor_type: str = Field(index=True, nullable=False)
++    value: float = Field(nullable=False)
++    unit: str = Field(default="")
++    sensor_metadata: Optional[str] = Field(default=None)
++    timestamp: datetime = Field(default_factory=datetime.utcnow, index=True)
++    created_at: datetime = Field(default_factory=datetime.utcnow)
+\ No newline at end of file
+diff --git a/app/models/user.py b/app/models/user.py
+index e69de29..8204ecb 100644
+--- a/app/models/user.py
++++ b/app/models/user.py
+@@ -0,0 +1,37 @@
++# app/models/user.py
++"""
++User model for authentication and authorization.
++
++• Stores user credentials and profile information.
++• Uses Argon2 password hashing for security.
++• Supports role-based access control.
++"""
++
++from uuid import UUID, uuid4
++from datetime import datetime
++from typing import Optional
++from sqlmodel import SQLModel, Field
++
++
++class User(SQLModel, table=True):
++    """
++    User account table.
++    
++    • `id` – UUID primary key.
++    • `username` – unique login identifier.
++    • `email` – unique email address.
++    • `hashed_password` – Argon2 hashed password.
++    • `is_active` – account status flag.
++    • `is_admin` – administrative privileges.
++    • `created_at` – account creation timestamp.
++    """
++    __tablename__ = "users"
++    
++    id: UUID = Field(default_factory=uuid4, primary_key=True, index=True)
++    username: str = Field(unique=True, index=True, nullable=False)
++    email: str = Field(unique=True, index=True, nullable=False)
++    hashed_password: str = Field(nullable=False)
++    is_active: bool = Field(default=True)
++    is_admin: bool = Field(default=False)
++    created_at: datetime = Field(default_factory=datetime.utcnow)
++    last_login: Optional[datetime] = Field(default=None)
+\ No newline at end of file
+diff --git a/app/services/__init__.py b/app/services/__init__.py
+index e69de29..ea75665 100644
+--- a/app/services/__init__.py
++++ b/app/services/__init__.py
+@@ -0,0 +1,6 @@
++# app/services/__init__.py
++"""
++Business logic services.
++
++Authentication, data processing, and business operations.
++"""
+\ No newline at end of file
+diff --git a/app/services/auth.py b/app/services/auth.py
+index e69de29..2b1de47 100644
+--- a/app/services/auth.py
++++ b/app/services/auth.py
+@@ -0,0 +1,62 @@
++# app/services/auth.py
++"""
++Authentication service for user management.
++
++• User authentication and login.
++• Token generation and validation.
++• User registration and profile management.
++"""
++
++from datetime import datetime
++from typing import Optional
++from sqlmodel import select
++from sqlalchemy.ext.asyncio import AsyncSession
++
++from app.models.user import User
++from app.utils.security import verify_password, create_access_token, hash_password
++
++
++async def authenticate_user(session: AsyncSession, username: str, password: str) -> Optional[User]:
++    """Authenticate a user with username and password."""
++    result = await session.exec(select(User).where(User.username == username))
++    user = result.first()
++    
++    if not user or not verify_password(password, user.hashed_password):
++        return None
++    
++    if not user.is_active:
++        return None
++    
++    # Update last login
++    user.last_login = datetime.utcnow()
++    session.add(user)
++    await session.commit()
++    
++    return user
++
++
++async def create_user(
++    session: AsyncSession, 
++    username: str, 
++    email: str, 
++    password: str,
++    is_admin: bool = False
++) -> User:
++    """Create a new user account."""
++    hashed_password = hash_password(password)
++    user = User(
++        username=username,
++        email=email,
++        hashed_password=hashed_password,
++        is_admin=is_admin
++    )
++    session.add(user)
++    await session.commit()
++    await session.refresh(user)
++    return user
++
++
++def create_user_token(user: User) -> str:
++    """Create an access token for a user."""
++    token_data = {"sub": str(user.id), "username": user.username}
++    return create_access_token(data=token_data)
+\ No newline at end of file
+diff --git a/app/utils/__init__.py b/app/utils/__init__.py
+index e69de29..13078bd 100644
+--- a/app/utils/__init__.py
++++ b/app/utils/__init__.py
+@@ -0,0 +1,6 @@
++# app/utils/__init__.py
++"""
++Utility functions and helpers.
++
++Security, validation, and common utilities.
++"""
+\ No newline at end of file
+diff --git a/app/utils/security.py b/app/utils/security.py
+index e69de29..da8ecba 100644
+--- a/app/utils/security.py
++++ b/app/utils/security.py
+@@ -0,0 +1,50 @@
++# app/utils/security.py
++"""
++Security utilities for authentication and authorization.
++
++• Password hashing with Argon2.
++• JWT token creation and validation.
++• Password verification functions.
++"""
++
++from datetime import datetime, timedelta
++from typing import Optional
++from passlib.context import CryptContext
++import jwt
++
++from app.core.config import settings
++
++# Password hashing context
++pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
++
++
++def hash_password(password: str) -> str:
++    """Hash a password using Argon2."""
++    return pwd_context.hash(password)
++
++
++def verify_password(plain_password: str, hashed_password: str) -> bool:
++    """Verify a password against its hash."""
++    return pwd_context.verify(plain_password, hashed_password)
++
++
++def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
++    """Create a JWT access token."""
++    to_encode = data.copy()
++    if expires_delta:
++        expire = datetime.utcnow() + expires_delta
++    else:
++        expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
++    
++    to_encode.update({"exp": expire})
++    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
++    return encoded_jwt
++
++
++def verify_token(token: str) -> Optional[dict]:
++    """Verify and decode a JWT token."""
++    try:
++        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
++        return payload
++    except jwt.PyJWTError:
++        return None
+\ No newline at end of file
+diff --git a/app/worker.py b/app/worker.py
+index e69de29..6399d78 100644
+--- a/app/worker.py
++++ b/app/worker.py
+@@ -0,0 +1,79 @@
++# app/worker.py
++"""
++Background worker for async task processing.
++
++• Celery task definitions for background jobs.
++• MQTT message processing.
++• Data aggregation and analytics tasks.
++"""
++
++import asyncio
++
++
++
++class BackgroundWorker:
++    """Background task processor for the application."""
++    
++    def __init__(self):
++        self.is_running = False
++    
++    async def start(self):
++        """Start the background worker."""
++        self.is_running = True
++        print("Background worker started")
++        
++        # Start background tasks
++        await asyncio.gather(
++            self.process_mqtt_messages(),
++            self.cleanup_old_data(),
++            self.health_check()
++        )
++    
++    async def stop(self):
++        """Stop the background worker."""
++        self.is_running = False
++        print("Background worker stopped")
++    
++    async def process_mqtt_messages(self):
++        """Process incoming MQTT messages."""
++        while self.is_running:
++            try:
++                # TODO: Implement MQTT message processing
++                await asyncio.sleep(1)
++            except Exception as e:
++                print(f"Error processing MQTT messages: {e}")
++                await asyncio.sleep(5)
++    
++    async def cleanup_old_data(self):
++        """Clean up old sensor data."""
++        while self.is_running:
++            try:
++                # TODO: Implement data cleanup logic
++                await asyncio.sleep(3600)  # Run every hour
++            except Exception as e:
++                print(f"Error cleaning up old data: {e}")
++                await asyncio.sleep(300)
++    
++    async def health_check(self):
++        """Periodic health check."""
++        while self.is_running:
++            try:
++                # TODO: Implement health check logic
++                await asyncio.sleep(60)  # Run every minute
++            except Exception as e:
++                print(f"Error in health check: {e}")
++                await asyncio.sleep(30)
++
++
++# Global worker instance
++worker = BackgroundWorker()
++
++
++async def start_worker():
++    """Start the background worker."""
++    await worker.start()
++
++
++async def stop_worker():
++    """Stop the background worker."""
++    await worker.stop()
+\ No newline at end of file
+diff --git a/tests/__init__.py b/tests/__init__.py
+index e69de29..1c59f33 100644
+--- a/tests/__init__.py
++++ b/tests/__init__.py
+@@ -0,0 +1,6 @@
++# tests/__init__.py
++"""
++Test suite for the application.
++
++Unit tests, integration tests, and test utilities.
++"""
+\ No newline at end of file
+diff --git a/tests/test_health.py b/tests/test_health.py
+index e69de29..1f0263b 100644
+--- a/tests/test_health.py
++++ b/tests/test_health.py
+@@ -0,0 +1,30 @@
++# tests/test_health.py
++"""
++Health check tests.
++
++Basic functionality tests for the application.
++"""
++
++import pytest
++from fastapi.testclient import TestClient
++
++from app.main import app
++
++client = TestClient(app)
++
++
++def test_health_check():
++    """Test the health check endpoint."""
++    response = client.get("/api/v1/health")
++    assert response.status_code == 200
++    assert response.json() == {"status": "ok"}
++
++
++def test_app_import():
++    """Test that the app can be imported successfully."""
++    assert app is not None
++    assert hasattr(app, "routes")
++
++
++if __name__ == "__main__":
++    pytest.main([__file__])
+\ No newline at end of file

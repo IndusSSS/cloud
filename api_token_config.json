@@ -1,0 +1,29 @@
+{
+  "api_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiJzbWFydHNlY3VyaXR5LWNsb3VkLTA0YjdmZjJiYWZlNzFmNDkiLCJwZXJtaXNzaW9ucyI6WyJkZXZpY2VzOnJlYWQiLCJkZXZpY2VzOndyaXRlIiwic2Vuc29yczpyZWFkIiwic2Vuc29yczp3cml0ZSIsImRhdGE6aW5nZXN0IiwiZGF0YTpxdWVyeSIsImFsZXJ0czpyZWFkIiwiYWxlcnRzOndyaXRlIl0sInRva2VuX3R5cGUiOiJhcGkiLCJpYXQiOjE3NTI0MTcxNzEsImV4cCI6MTc4Mzk1MzE3MX0.HzphmEKPrzqX4HAuBw8IMCJ2M0bogV-DORw1RrWmd94",
+  "client_id": "smartsecurity-cloud-04b7ff2bafe71f49",
+  "permissions": [
+    "devices:read",
+    "devices:write",
+    "sensors:read",
+    "sensors:write",
+    "data:ingest",
+    "data:query",
+    "alerts:read",
+    "alerts:write"
+  ],
+  "expires_at": "2026-07-13T14:32:51.320762+00:00",
+  "token_type": "Bearer",
+  "base_url": "https://cloud.smartsecurity.solutions/api/v1",
+  "generated_at": "2025-07-13T20:02:51.320774",
+  "usage_instructions": {
+    "header_format": "Authorization: Bearer <api_token>",
+    "example": "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfa...",
+    "endpoints": [
+      "GET /health",
+      "GET /devices",
+      "GET /sensors",
+      "POST /ingest",
+      "GET /alerts"
+    ]
+  }
+}

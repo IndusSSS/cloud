@@ -1,0 +1,47 @@
+[
+  {
+    "test": "Health Check",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/health (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8C7290>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "Admin Login",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/auth/login (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8D5ED0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "RBAC Protection",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/tenants/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8B76D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "Tenant Creation",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/tenants/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8D5050>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "Tenant Listing",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/tenants/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8D6F10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "User Creation",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/users/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8E0390>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "Device Creation",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/devices/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8E1A10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "Audit Logs",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/audit/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8E2B10>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  },
+  {
+    "test": "OTA Rollout",
+    "success": false,
+    "details": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/admin/ota/firmware/rollout (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000029AAA8E8150>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))"
+  }
+]

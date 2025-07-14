@@ -1,0 +1,56 @@
+[
+  {
+    "test": "Health Check",
+    "success": true,
+    "details": "Status: ok",
+    "timestamp": "2025-07-13T14:37:52.636431"
+  },
+  {
+    "test": "OpenAPI Documentation",
+    "success": true,
+    "details": "Docs accessible",
+    "timestamp": "2025-07-13T14:37:52.636431"
+  },
+  {
+    "test": "User Registration",
+    "success": true,
+    "details": "User ID: user-2",
+    "timestamp": "2025-07-13T14:37:52.636431"
+  },
+  {
+    "test": "User Login",
+    "success": true,
+    "details": "Token received for user: admin",
+    "timestamp": "2025-07-13T14:37:52.636431"
+  },
+  {
+    "test": "Get Current User",
+    "success": true,
+    "details": "User: admin",
+    "timestamp": "2025-07-13T14:37:52.636431"
+  },
+  {
+    "test": "Device Creation",
+    "success": true,
+    "details": "Device ID: device-1",
+    "timestamp": "2025-07-13T14:37:52.636431"
+  },
+  {
+    "test": "Device Listing",
+    "success": true,
+    "details": "Found 1 devices",
+    "timestamp": "2025-07-13T14:37:52.650516"
+  },
+  {
+    "test": "Data Ingestion",
+    "success": true,
+    "details": "Health beacon data ingested",
+    "timestamp": "2025-07-13T14:37:52.655663"
+  },
+  {
+    "test": "WebSocket Connection",
+    "success": true,
+    "details": "Connection established",
+    "timestamp": "2025-07-13T14:37:54.684443"
+  }
+]
