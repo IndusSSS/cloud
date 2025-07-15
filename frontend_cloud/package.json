@@ -14,23 +14,15 @@
     "apexcharts": "^4.1.0",
     "axios": "^1.6.8",
     "pinia": "^2.1.7",
-<<<<<<< HEAD
-    "axios": "^1.6.0",
-    "apexcharts": "^4.0.0",
-    "vue3-apexcharts": "^1.4.4",
-    "@headlessui/vue": "^1.7.16",
-    "@heroicons/vue": "^2.0.18"
-=======
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue3-apexcharts": "^1.8.0"
->>>>>>> ad9c1dbaff08a9b1ade6b1e2aac49047086a3895
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.0",
+    "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
-    "vite": "^7.0.4"
+    "vite": "^5.0.0"
   }
 }

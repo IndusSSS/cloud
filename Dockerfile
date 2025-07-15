@@ -7,11 +7,9 @@ RUN apt-get update && apt-get install -y python3-distutils
 # Set workdir
 WORKDIR /app
 
-# Install Poetry
-COPY pyproject.toml poetry.lock* /app/
-RUN pip install --no-cache-dir poetry  \
- && poetry config virtualenvs.create false  \
- && poetry install --only main --no-root
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy rest of the code
 COPY . /app
