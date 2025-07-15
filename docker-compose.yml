@@ -55,8 +55,6 @@ services:
     build:
       context: ./frontend_cloud
       dockerfile: Dockerfile
-    volumes:
-      - frontend_cloud_build:/usr/share/nginx/html_cloud
     depends_on: [api]
     restart: unless-stopped
     networks: [backend]
@@ -68,7 +66,6 @@ services:
       - "443:443"
     volumes:
       - ./nginx/conf.d/cloud.conf:/etc/nginx/conf.d/default.conf:ro
-      - frontend_cloud_build:/usr/share/nginx/html_cloud:ro
       - /etc/letsencrypt:/etc/letsencrypt:ro
       - /var/lib/letsencrypt:/var/lib/letsencrypt:ro
     depends_on:
@@ -79,7 +76,6 @@ services:
 
 volumes:
   db_data:
-  frontend_cloud_build:
 
 networks:
   backend:
