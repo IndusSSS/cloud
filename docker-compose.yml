@@ -76,13 +76,10 @@ services:
   nginx:
     image: nginx:alpine
     ports:
-      - "80:80"   # HTTP for Let's Encrypt challenge
-      - "443:443" # HTTPS
+      - "80:80"   # HTTP only for now
     volumes:
-      - ./nginx/conf.d/cloud.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/conf.d/cloud-http-only.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/conf.d/health.conf:/etc/nginx/conf.d/health.conf:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /var/lib/letsencrypt:/var/lib/letsencrypt:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/health"]
       interval: 30s
