@@ -22,7 +22,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 API_BASE_URL = "http://localhost:8082"  # Adjust if needed
 API_ENDPOINTS = {
     "register": "/api/v1/auth/register",
-    "login": "/api/v1/auth/login",
+    "login": "/api/v1/auth/login-json",
     "me": "/api/v1/auth/me",
     "admin_users": "/api/v1/admin/users"
 }
@@ -126,14 +126,14 @@ def login_and_verify_admin(username: str, password: str) -> bool:
     """Login and verify admin privileges."""
     url = f"{API_BASE_URL}{API_ENDPOINTS['login']}"
     
-    # Use form data for login (OAuth2PasswordRequestForm)
+    # Use JSON data for login-json endpoint
     data = {
         "username": username,
         "password": password
     }
     
     try:
-        response = requests.post(url, data=data, headers=HEADERS, verify=False, timeout=10)
+        response = requests.post(url, json=data, headers=HEADERS, verify=False, timeout=10)
         
         if response.status_code == 200:
             result = response.json()
