@@ -65,13 +65,13 @@ services:
     restart: unless-stopped
     networks: [backend]
 
-  frontend_admin:
-    build:
-      context: ./frontend_admin
-      dockerfile: Dockerfile
-    depends_on: [api]
-    restart: unless-stopped
-    networks: [backend]
+  # frontend_admin:
+  #   build:
+  #     context: ./frontend_admin
+  #     dockerfile: Dockerfile
+  #   depends_on: [api]
+  #   restart: unless-stopped
+  #   networks: [backend]
 
   nginx:
     image: nginx:alpine
@@ -91,7 +91,7 @@ services:
       start_period: 40s
     depends_on:
       - frontend_cloud
-      - frontend_admin
+      # - frontend_admin
       - api
     restart: unless-stopped
     networks: [backend]
