@@ -150,22 +150,22 @@ async def create_system_admin() -> None:
                 print(f"❌ Email '{email}' already exists!")
                 return
             
-            # Get or create default tenant
-            result = await session.execute(select(Tenant).where(Tenant.name == "default"))
-            default_tenant = result.scalar_one_or_none()
-            if not default_tenant:
-                default_tenant = Tenant(name="default", plan="free")
-                session.add(default_tenant)
+            # Get or create system tenant for system admins
+            result = await session.execute(select(Tenant).where(Tenant.name == "system"))
+            system_tenant = result.scalar_one_or_none()
+            if not system_tenant:
+                system_tenant = Tenant(name="system", plan="enterprise")
+                session.add(system_tenant)
                 await session.commit()
-                await session.refresh(default_tenant)
+                await session.refresh(system_tenant)
             
-            # Create system admin user (no tenant restriction)
+            # Create system admin user (use "system" tenant for system admins)
             admin_user = User(
                 username=username,
                 email=email,
                 hashed_password=get_password_hash(password),
                 is_admin=True,
-                tenant_id=None,  # System admin has no tenant restriction
+                tenant_id=system_tenant.id,  # System admin uses "system" tenant
                 is_active=True
             )
             
