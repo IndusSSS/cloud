@@ -1,351 +1,205 @@
 #!/usr/bin/env python3
 """
-HTTPS Setup Test Script for SmartSecurity Cloud
-
-This script tests the complete HTTPS setup including:
-- SSL certificate generation
-- Docker container startup
-- HTTPS connectivity
-- Security headers
-- HTTP to HTTPS redirects
+HTTPS Setup Test Script for Smart Security Cloud
+Tests the SSL certificate setup and domain accessibility
 """
 
-import os
-import sys
-import subprocess
-import time
 import requests
-from pathlib import Path
+import subprocess
+import sys
+import time
+from urllib.parse import urlparse
+import json
 
-# Disable SSL warnings for self-signed certificates
-try:
-    import urllib3
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-except ImportError:
-    # urllib3 not available, continue without disabling warnings
-    pass
+def print_status(message, status="INFO"):
+    """Print colored status messages"""
+    colors = {
+        "INFO": "\033[0;32m",    # Green
+        "WARNING": "\033[1;33m", # Yellow
+        "ERROR": "\033[0;31m",   # Red
+        "SUCCESS": "\033[0;36m"  # Cyan
+    }
+    reset = "\033[0m"
+    print(f"{colors.get(status, colors['INFO'])}[{status}]{reset} {message}")
 
-def run_command(cmd, description, check=True):
-    """Run a command and handle errors."""
-    print(f"🔄 {description}...")
+def test_domain_https(domain):
+    """Test if a domain is accessible via HTTPS"""
+    url = f"https://{domain}"
     try:
-        result = subprocess.run(cmd, shell=True, check=check, capture_output=True, text=True)
-        if result.returncode == 0:
-            print(f"✅ {description} completed successfully")
-            return True, result.stdout
+        response = requests.get(url, timeout=10, verify=True)
+        if response.status_code in [200, 301, 302]:
+            print_status(f"✅ {domain} HTTPS is working (Status: {response.status_code})", "SUCCESS")
+            return True
         else:
-            print(f"❌ {description} failed: {result.stderr}")
-            return False, result.stderr
-    except subprocess.CalledProcessError as e:
-        print(f"❌ {description} failed: {e}")
-        return False, str(e)
+            print_status(f"⚠️  {domain} returned status {response.status_code}", "WARNING")
+            return False
+    except requests.exceptions.SSLError as e:
+        print_status(f"❌ {domain} SSL error: {e}", "ERROR")
+        return False
+    except requests.exceptions.RequestException as e:
+        print_status(f"❌ {domain} connection error: {e}", "ERROR")
+        return False
 
-def generate_ssl_certificates():
-    """Generate SSL certificates for testing."""
-    print("\n🔐 Generating SSL Certificates")
-    print("=" * 50)
+def test_domain_http_redirect(domain):
+    """Test if HTTP redirects to HTTPS"""
+    url = f"http://{domain}"
+    try:
+        response = requests.get(url, timeout=10, allow_redirects=False)
+        if response.status_code == 301 and 'https://' in response.headers.get('Location', ''):
+            print_status(f"✅ {domain} HTTP to HTTPS redirect working", "SUCCESS")
+            return True
+        else:
+            print_status(f"⚠️  {domain} HTTP redirect not working properly", "WARNING")
+            return False
+    except requests.exceptions.RequestException as e:
+        print_status(f"❌ {domain} HTTP redirect test failed: {e}", "ERROR")
+        return False
+
+def check_ssl_certificates():
+    """Check if SSL certificates exist and are valid"""
+    print_status("Checking SSL certificates...")
     
-    # Create SSL directories
-    os.makedirs("ssl/certs", exist_ok=True)
-    os.makedirs("ssl/private", exist_ok=True)
-    
-    # Generate certificates using OpenSSL
-    domains = [
-        "cloud.smartsecurity.solutions",
-        "admin.smartsecurity.solutions"
+    cert_files = [
+        "ssl/certs/cloud.smartsecurity.solutions.fullchain.pem",
+        "ssl/private/cloud.smartsecurity.solutions.privkey.pem",
+        "ssl/certs/admin.smartsecurity.solutions.fullchain.pem",
+        "ssl/private/admin.smartsecurity.solutions.privkey.pem"
     ]
     
-    for domain in domains:
-        print(f"\nGenerating certificate for {domain}...")
-        
-        # Generate private key
-        success, _ = run_command(
-            f'openssl genrsa -out "ssl/private/{domain}.key" 2048',
-            f"Generating private key for {domain}"
-        )
-        if not success:
-            print(f"⚠️  Using placeholder key for {domain}")
-            with open(f"ssl/private/{domain}.key", "w") as f:
-                f.write("-----BEGIN PRIVATE KEY-----\nPLACEHOLDER\n-----END PRIVATE KEY-----\n")
-        
-        # Generate certificate
-        success, _ = run_command(
-            f'openssl req -new -x509 -key "ssl/private/{domain}.key" -out "ssl/certs/{domain}.crt" -days 365 -subj "/C=US/ST=State/L=City/O=SmartSecurity/OU=IT/CN={domain}"',
-            f"Generating certificate for {domain}"
-        )
-        if not success:
-            print(f"⚠️  Using placeholder certificate for {domain}")
-            with open(f"ssl/certs/{domain}.crt", "w") as f:
-                f.write("-----BEGIN CERTIFICATE-----\nPLACEHOLDER\n-----END CERTIFICATE-----\n")
-    
-    return True
-
-def check_docker_status():
-    """Check if Docker is running and containers are up."""
-    print("\n🐳 Checking Docker Status")
-    print("=" * 50)
-    
-    # Check if Docker is running
-    success, output = run_command("docker --version", "Checking Docker installation")
-    if not success:
-        return False
-    
-    # Check if containers are running
-    success, output = run_command("docker-compose ps", "Checking container status")
-    if not success:
-        return False
-    
-    print("Container status:")
-    print(output)
-    return True
-
-def start_docker_containers():
-    """Start Docker containers for testing."""
-    print("\n🚀 Starting Docker Containers")
-    print("=" * 50)
-    
-    # Stop any existing containers
-    run_command("docker-compose down", "Stopping existing containers", check=False)
-    
-    # Start containers
-    success, output = run_command("docker-compose up -d", "Starting containers")
-    if not success:
-        return False
-    
-    # Wait for containers to be ready
-    print("⏳ Waiting for containers to be ready...")
-    time.sleep(10)
-    
-    return True
-
-def test_https_connectivity():
-    """Test HTTPS connectivity and security headers."""
-    print("\n🔒 Testing HTTPS Connectivity")
-    print("=" * 50)
-    
-    test_urls = [
-        "https://cloud.smartsecurity.solutions",
-        "https://admin.smartsecurity.solutions"
-    ]
-    
-    results = {}
-    
-    for url in test_urls:
-        print(f"\nTesting {url}...")
-        
+    all_exist = True
+    for cert_file in cert_files:
         try:
-            # Test HTTPS connection
-            response = requests.get(url, verify=False, timeout=10)
-            
-            print(f"✅ HTTPS connection successful (Status: {response.status_code})")
-            
-            # Check security headers
-            security_headers = {
-                'Strict-Transport-Security': 'HSTS header present',
-                'X-Frame-Options': 'Clickjacking protection',
-                'X-Content-Type-Options': 'MIME sniffing protection',
-                'X-XSS-Protection': 'XSS protection',
-                'Content-Security-Policy': 'CSP header present'
-            }
-            
-            print("Security headers:")
-            for header, description in security_headers.items():
-                if header in response.headers:
-                    print(f"  ✅ {header}: {response.headers[header]}")
+            with open(cert_file, 'r') as f:
+                content = f.read()
+                if "BEGIN CERTIFICATE" in content or "BEGIN PRIVATE KEY" in content:
+                    print_status(f"✅ {cert_file} exists and appears valid", "SUCCESS")
                 else:
-                    print(f"  ⚠️  {header}: Missing")
-            
-            results[url] = True
-            
-        except requests.exceptions.RequestException as e:
-            print(f"❌ HTTPS connection failed: {e}")
-            results[url] = False
+                    print_status(f"⚠️  {cert_file} exists but content seems invalid", "WARNING")
+                    all_exist = False
+        except FileNotFoundError:
+            print_status(f"❌ {cert_file} not found", "ERROR")
+            all_exist = False
+        except Exception as e:
+            print_status(f"❌ Error reading {cert_file}: {e}", "ERROR")
+            all_exist = False
     
-    return results
+    return all_exist
 
-def test_http_redirects():
-    """Test HTTP to HTTPS redirects."""
-    print("\n🔄 Testing HTTP to HTTPS Redirects")
-    print("=" * 50)
+def check_docker_containers():
+    """Check if Docker containers are running"""
+    print_status("Checking Docker containers...")
     
-    test_urls = [
-        "http://cloud.smartsecurity.solutions",
-        "http://admin.smartsecurity.solutions"
-    ]
-    
-    results = {}
-    
-    for url in test_urls:
-        print(f"\nTesting redirect from {url}...")
+    try:
+        result = subprocess.run(['docker-compose', 'ps'], capture_output=True, text=True, check=True)
+        output = result.stdout
         
-        try:
-            response = requests.get(url, allow_redirects=False, timeout=10)
-            
-            if response.status_code in [301, 302]:
-                print(f"✅ Redirect successful (Status: {response.status_code})")
-                print(f"   Redirects to: {response.headers.get('Location', 'Unknown')}")
-                results[url] = True
+        containers = ['nginx', 'api', 'frontend_cloud', 'frontend_admin', 'db', 'redis', 'broker', 'worker']
+        running_containers = []
+        
+        for line in output.split('\n'):
+            for container in containers:
+                if container in line and 'Up' in line:
+                    running_containers.append(container)
+        
+        for container in containers:
+            if container in running_containers:
+                print_status(f"✅ {container} container is running", "SUCCESS")
             else:
-                print(f"❌ No redirect (Status: {response.status_code})")
-                results[url] = False
-                
-        except requests.exceptions.RequestException as e:
-            print(f"❌ Redirect test failed: {e}")
-            results[url] = False
-    
-    return results
+                print_status(f"❌ {container} container is not running", "ERROR")
+        
+        return len(running_containers) == len(containers)
+    except subprocess.CalledProcessError as e:
+        print_status(f"❌ Error checking Docker containers: {e}", "ERROR")
+        return False
 
 def test_api_endpoints():
-    """Test API endpoints over HTTPS."""
-    print("\n🔌 Testing API Endpoints")
-    print("=" * 50)
+    """Test API endpoints"""
+    print_status("Testing API endpoints...")
     
     api_urls = [
         "https://cloud.smartsecurity.solutions/api/v1/health",
         "https://admin.smartsecurity.solutions/api/v1/health"
     ]
     
-    results = {}
-    
+    all_working = True
     for url in api_urls:
-        print(f"\nTesting API endpoint: {url}")
-        
         try:
-            response = requests.get(url, verify=False, timeout=10)
-            
+            response = requests.get(url, timeout=10, verify=True)
             if response.status_code == 200:
-                print(f"✅ API endpoint accessible (Status: {response.status_code})")
-                results[url] = True
+                print_status(f"✅ {url} is working", "SUCCESS")
             else:
-                print(f"⚠️  API endpoint returned status: {response.status_code}")
-                results[url] = False
-                
+                print_status(f"⚠️  {url} returned status {response.status_code}", "WARNING")
+                all_working = False
         except requests.exceptions.RequestException as e:
-            print(f"❌ API endpoint test failed: {e}")
-            results[url] = False
+            print_status(f"❌ {url} failed: {e}", "ERROR")
+            all_working = False
     
-    return results
-
-def update_hosts_file():
-    """Update hosts file for local testing."""
-    print("\n📝 Updating Hosts File")
-    print("=" * 50)
-    
-    hosts_entries = [
-        "127.0.0.1 cloud.smartsecurity.solutions",
-        "127.0.0.1 admin.smartsecurity.solutions"
-    ]
-    
-    hosts_file = r"C:\Windows\System32\drivers\etc\hosts"
-    
-    try:
-        with open(hosts_file, 'r') as f:
-            content = f.read()
-        
-        # Check if entries already exist
-        missing_entries = []
-        for entry in hosts_entries:
-            if entry not in content:
-                missing_entries.append(entry)
-        
-        if missing_entries:
-            print("⚠️  The following entries need to be added to your hosts file:")
-            for entry in missing_entries:
-                print(f"   {entry}")
-            print(f"\nHosts file location: {hosts_file}")
-            print("Please add these entries manually and run the test again.")
-            return False
-        else:
-            print("✅ All required hosts entries are present")
-            return True
-            
-    except Exception as e:
-        print(f"❌ Error reading hosts file: {e}")
-        return False
+    return all_working
 
 def main():
-    """Main test function."""
-    print("🔐 SmartSecurity HTTPS Setup Test")
-    print("=" * 50)
+    """Main test function"""
+    print_status("🔒 Starting HTTPS Setup Test for Smart Security Cloud", "INFO")
+    print_status("=" * 60, "INFO")
     
-    # Check prerequisites
-    print("\n📋 Checking Prerequisites")
-    print("=" * 50)
+    # Test 1: Check SSL certificates
+    certs_ok = check_ssl_certificates()
+    print()
     
-    # Check if Docker is available
-    success, _ = run_command("docker --version", "Checking Docker")
-    if not success:
-        print("❌ Docker is not installed or not in PATH")
-        return False
+    # Test 2: Check Docker containers
+    containers_ok = check_docker_containers()
+    print()
     
-    # Check if docker-compose is available
-    success, _ = run_command("docker-compose --version", "Checking Docker Compose")
-    if not success:
-        print("❌ Docker Compose is not installed or not in PATH")
-        return False
+    # Test 3: Test domain accessibility
+    print_status("Testing domain accessibility...")
+    domains = ['cloud.smartsecurity.solutions', 'admin.smartsecurity.solutions']
     
-    # Generate SSL certificates
-    if not generate_ssl_certificates():
-        print("❌ Failed to generate SSL certificates")
-        return False
+    https_ok = True
+    redirect_ok = True
     
-    # Update hosts file
-    if not update_hosts_file():
-        print("⚠️  Please update hosts file and run the test again")
-        return False
+    for domain in domains:
+        print_status(f"Testing {domain}...")
+        if not test_domain_https(domain):
+            https_ok = False
+        if not test_domain_http_redirect(domain):
+            redirect_ok = False
+        print()
     
-    # Start Docker containers
-    if not start_docker_containers():
-        print("❌ Failed to start Docker containers")
-        return False
+    # Test 4: Test API endpoints
+    api_ok = test_api_endpoints()
+    print()
     
-    # Wait a bit more for services to be ready
-    print("⏳ Waiting for services to be fully ready...")
-    time.sleep(15)
+    # Summary
+    print_status("=" * 60, "INFO")
+    print_status("📊 TEST SUMMARY", "INFO")
+    print_status("=" * 60, "INFO")
     
-    # Test HTTPS connectivity
-    https_results = test_https_connectivity()
+    tests = [
+        ("SSL Certificates", certs_ok),
+        ("Docker Containers", containers_ok),
+        ("HTTPS Accessibility", https_ok),
+        ("HTTP to HTTPS Redirects", redirect_ok),
+        ("API Endpoints", api_ok)
+    ]
     
-    # Test HTTP redirects
-    redirect_results = test_http_redirects()
+    all_passed = True
+    for test_name, passed in tests:
+        status = "✅ PASS" if passed else "❌ FAIL"
+        color = "SUCCESS" if passed else "ERROR"
+        print_status(f"{test_name}: {status}", color)
+        if not passed:
+            all_passed = False
     
-    # Test API endpoints
-    api_results = test_api_endpoints()
-    
-    # Print summary
-    print("\n📊 Test Summary")
-    print("=" * 50)
-    
-    print("\nHTTPS Connectivity:")
-    for url, success in https_results.items():
-        status = "✅ PASS" if success else "❌ FAIL"
-        print(f"  {status} {url}")
-    
-    print("\nHTTP to HTTPS Redirects:")
-    for url, success in redirect_results.items():
-        status = "✅ PASS" if success else "❌ FAIL"
-        print(f"  {status} {url}")
-    
-    print("\nAPI Endpoints:")
-    for url, success in api_results.items():
-        status = "✅ PASS" if success else "❌ FAIL"
-        print(f"  {status} {url}")
-    
-    # Overall result
-    all_tests = list(https_results.values()) + list(redirect_results.values()) + list(api_results.values())
-    passed_tests = sum(all_tests)
-    total_tests = len(all_tests)
-    
-    print(f"\nOverall Result: {passed_tests}/{total_tests} tests passed")
-    
-    if passed_tests == total_tests:
-        print("🎉 All tests passed! HTTPS setup is working correctly.")
-        print("✅ Ready for VPS deployment!")
+    print()
+    if all_passed:
+        print_status("🎉 All tests passed! Your HTTPS setup is working correctly.", "SUCCESS")
+        print_status("Your domains are now secure and accessible via HTTPS:", "INFO")
+        print_status("  - https://cloud.smartsecurity.solutions", "INFO")
+        print_status("  - https://admin.smartsecurity.solutions", "INFO")
     else:
-        print("⚠️  Some tests failed. Please check the configuration.")
+        print_status("⚠️  Some tests failed. Please check the issues above.", "WARNING")
+        print_status("You may need to run the setup_ssl_certificates.sh script again.", "INFO")
     
-    return passed_tests == total_tests
+    return 0 if all_passed else 1
 
 if __name__ == "__main__":
-    success = main()
-    sys.exit(0 if success else 1) 
+    sys.exit(main()) 
