@@ -53,14 +53,35 @@ export default {
     if (token && user) {
       try {
         const userData = JSON.parse(user)
-        this.username = userData.username
-        this.isLoggedIn = true
+        // Verify token is still valid by making an API call
+        this.verifyToken(token, userData)
       } catch (e) {
         this.logout()
       }
+    } else {
+      // Force logout if no valid session
+      this.logout()
     }
   },
   methods: {
+    async verifyToken(token, userData) {
+      try {
+        const response = await fetch('/api/v1/auth/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        
+        if (response.ok) {
+          this.username = userData.username
+          this.isLoggedIn = true
+        } else {
+          this.logout()
+        }
+      } catch (e) {
+        this.logout()
+      }
+    },
     handleLoginSuccess(data) {
       this.username = data.username
       this.isLoggedIn = true
@@ -70,6 +91,8 @@ export default {
       localStorage.removeItem('user')
       this.isLoggedIn = false
       this.username = ''
+      // Force redirect to login page
+      window.location.reload()
     }
   }
 }
