@@ -82,12 +82,14 @@
           </button>
         </div>
 
-        <!-- Demo Credentials -->
-        <div class="mt-6 bg-gray-50 rounded-lg p-4">
-          <h3 class="text-sm font-medium text-gray-900 mb-2">Demo Credentials</h3>
-          <div class="text-xs text-gray-600 space-y-1">
-            <div><strong>Username:</strong> admin</div>
-            <div><strong>Password:</strong> admin123</div>
+        <!-- Admin Setup Information -->
+        <div class="mt-6 bg-blue-50 rounded-lg p-4">
+          <h3 class="text-sm font-medium text-blue-900 mb-2">🔐 First Time Setup</h3>
+          <div class="text-xs text-blue-700 space-y-1">
+            <div>If this is your first time accessing the admin console,</div>
+            <div>you need to create an admin account first.</div>
+            <div class="mt-2 font-medium">Run this command on your server:</div>
+            <div class="bg-blue-100 p-2 rounded font-mono text-xs">python create_admin_user.py</div>
           </div>
         </div>
       </form>

@@ -134,21 +134,10 @@ def create_app() -> FastAPI:
                             await session.commit()
                             await session.refresh(default_tenant)
                         
-                        # Check if admin user exists
-                        result = await session.execute(select(User))
-                        user_exists = result.scalars().first()
-                        if not user_exists:
-                            admin = User(
-                                username="admin",
-                                email="admin@example.com",
-                                hashed_password=hash_password("admin123"),
-                                tenant_id=default_tenant.id,
-                                is_admin=True
-                            )
-                            session.add(admin)
-                            await session.commit()
+                        # Note: Admin users should be created using create_admin_user.py script
+                        # This ensures secure password creation and proper validation
                         
-                        # Create demo user for customer portal
+                        # Create demo user for customer portal (if needed)
                         demo_user = await session.execute(
                             select(User).where(User.username == "demo")
                         )
