@@ -10,11 +10,23 @@ services:
       - db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cloud -d cloud_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     networks: [backend]
 
   redis:
     image: redis:7-alpine
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks: [backend]
 
   broker:
@@ -23,6 +35,12 @@ services:
     ports: ["1884:1883"]
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mosquitto_pub -h localhost -t test -m test || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     networks: [backend]
 
   api:
@@ -30,9 +48,15 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-    env_file: .env
+    env_file: env.example
     ports: ["8082:8000"]
-    depends_on: [db, redis, broker]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
@@ -47,8 +71,14 @@ services:
       context: .
       dockerfile: Dockerfile
     command: ["python", "-m", "app.worker"]
-    env_file: .env
-    depends_on: [db, redis, broker]
+    env_file: env.example
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
     restart: unless-stopped
     networks: [backend]
 
@@ -57,7 +87,9 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports: ["8083:80"]
-    depends_on: [api]
+    depends_on:
+      api:
+        condition: service_healthy
     restart: unless-stopped
     networks: [backend]
 
@@ -65,7 +97,9 @@ services:
     build:
       context: ./frontend_cloud
       dockerfile: Dockerfile
-    depends_on: [api]
+    depends_on:
+      api:
+        condition: service_healthy
     restart: unless-stopped
     networks: [backend]
 
@@ -73,7 +107,9 @@ services:
     build:
       context: ./frontend_admin
       dockerfile: Dockerfile
-    depends_on: [api]
+    depends_on:
+      api:
+        condition: service_healthy
     restart: unless-stopped
     networks: [backend]
 
@@ -94,9 +130,12 @@ services:
       retries: 3
       start_period: 40s
     depends_on:
-      - frontend_cloud
-      - frontend_admin
-      - api
+      frontend_cloud:
+        condition: service_started
+      frontend_admin:
+        condition: service_started
+      api:
+        condition: service_healthy
     restart: unless-stopped
     networks: [backend]
 
