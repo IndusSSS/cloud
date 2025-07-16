@@ -38,42 +38,60 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Step 1: Update system and install dependencies
-print_step "1. Updating system and installing dependencies..."
-apt update -y
-apt install -y curl wget git docker.io docker-compose certbot python3-certbot-nginx
+# Step 1: Check and fix Docker installation
+print_step "1. Checking Docker installation..."
+if docker --version >/dev/null 2>&1; then
+    print_status "Docker is already installed"
+    docker --version
+else
+    print_warning "Docker not found, but docker-compose is available"
+fi
 
-# Step 2: Create necessary directories
-print_step "2. Creating necessary directories..."
+# Check docker-compose
+if docker-compose --version >/dev/null 2>&1; then
+    print_status "Docker Compose is available"
+    docker-compose --version
+else
+    print_error "Docker Compose not found"
+    exit 1
+fi
+
+# Step 2: Install missing dependencies
+print_step "2. Installing missing dependencies..."
+apt update -y
+apt install -y curl wget git certbot python3-certbot-nginx
+
+# Step 3: Create necessary directories
+print_step "3. Creating necessary directories..."
 mkdir -p ssl/certs ssl/private
 mkdir -p logs
 
-# Step 3: Copy environment file
-print_step "3. Setting up environment configuration..."
+# Step 4: Copy environment file
+print_step "4. Setting up environment configuration..."
 if [ ! -f ".env" ] && [ -f "env.example" ]; then
     cp env.example .env
     print_status "Created .env file from template"
 fi
 
-# Step 4: Stop any existing containers
-print_step "4. Stopping existing containers..."
+# Step 5: Stop any existing containers
+print_step "5. Stopping existing containers..."
 docker-compose down 2>/dev/null || true
 
-# Step 5: Build and start containers
-print_step "5. Building and starting containers..."
+# Step 6: Build and start containers
+print_step "6. Building and starting containers..."
 docker-compose build --no-cache
 docker-compose up -d
 
-# Step 6: Wait for services to be ready
-print_step "6. Waiting for services to be ready..."
+# Step 7: Wait for services to be ready
+print_step "7. Waiting for services to be ready..."
 sleep 30
 
-# Step 7: Check container status
-print_step "7. Checking container status..."
+# Step 8: Check container status
+print_step "8. Checking container status..."
 docker-compose ps
 
-# Step 8: Generate SSL certificates if needed
-print_step "8. Setting up SSL certificates..."
+# Step 9: Generate SSL certificates if needed
+print_step "9. Setting up SSL certificates..."
 if [ ! -f "ssl/certs/cloud.smartsecurity.solutions.fullchain.pem" ]; then
     print_status "Generating SSL certificates..."
     
@@ -92,7 +110,7 @@ if [ ! -f "ssl/certs/cloud.smartsecurity.solutions.fullchain.pem" ]; then
     cp /etc/letsencrypt/live/cloud.smartsecurity.solutions/fullchain.pem ssl/certs/cloud.smartsecurity.solutions.fullchain.pem
     cp /etc/letsencrypt/live/cloud.smartsecurity.solutions/privkey.pem ssl/private/cloud.smartsecurity.solutions.privkey.pem
     cp /etc/letsencrypt/live/admin.smartsecurity.solutions/fullchain.pem ssl/certs/admin.smartsecurity.solutions.fullchain.pem
-    cp /etc/letsencrypt/live/admin.smartsecurity.solutions.privkey.pem ssl/private/admin.smartsecurity.solutions.privkey.pem
+    cp /etc/letsencrypt/live/admin.smartsecurity.solutions/privkey.pem ssl/private/admin.smartsecurity.solutions.privkey.pem
     
     # Set permissions
     chmod 644 ssl/certs/*
@@ -105,12 +123,12 @@ else
     print_status "SSL certificates already exist"
 fi
 
-# Step 9: Wait for nginx to be ready
-print_step "9. Waiting for nginx to be ready..."
+# Step 10: Wait for nginx to be ready
+print_step "10. Waiting for nginx to be ready..."
 sleep 10
 
-# Step 10: Test the setup
-print_step "10. Testing the setup..."
+# Step 11: Test the setup
+print_step "11. Testing the setup..."
 
 # Get VPS IP
 VPS_IP=$(curl -s ifconfig.me)
@@ -140,18 +158,18 @@ else
     print_warning "⚠️  MQTT broker test failed"
 fi
 
-# Step 11: Check container health
-print_step "11. Checking container health..."
+# Step 12: Check container health
+print_step "12. Checking container health..."
 docker-compose ps
 
-# Step 12: Set up automatic renewal
-print_step "12. Setting up automatic certificate renewal..."
+# Step 13: Set up automatic renewal
+print_step "13. Setting up automatic certificate renewal..."
 cat > /etc/cron.d/ssl-renewal << EOF
 # SSL Certificate Renewal for Smart Security Cloud
 0 12 * * * root cd /home/admin/Projects/cloud && ./renew_ssl_certificates.sh >> /var/log/ssl-renewal.log 2>&1
 EOF
 
-# Step 13: Create renewal script
+# Step 14: Create renewal script
 cat > renew_ssl_certificates.sh << 'EOF'
 #!/bin/bash
 # SSL Certificate Renewal Script
@@ -191,8 +209,8 @@ EOF
 
 chmod +x renew_ssl_certificates.sh
 
-# Step 14: Final status check
-print_step "14. Final status check..."
+# Step 15: Final status check
+print_step "15. Final status check..."
 
 # Check all containers are running
 if docker-compose ps | grep -q "Up"; then
