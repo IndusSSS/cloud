@@ -59,7 +59,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -102,6 +102,12 @@ services:
         condition: service_healthy
     restart: unless-stopped
     networks: [backend]
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   frontend_admin:
     build:
@@ -112,6 +118,12 @@ services:
         condition: service_healthy
     restart: unless-stopped
     networks: [backend]
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   nginx:
     image: nginx:alpine
@@ -124,16 +136,16 @@ services:
       - ./ssl/certs:/etc/ssl/certs:ro
       - ./ssl/private:/etc/ssl/private:ro
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     depends_on:
       frontend_cloud:
-        condition: service_started
+        condition: service_healthy
       frontend_admin:
-        condition: service_started
+        condition: service_healthy
       api:
         condition: service_healthy
     restart: unless-stopped
