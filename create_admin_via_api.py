@@ -90,14 +90,15 @@ def create_admin_user_via_api(username: str, email: str, password: str) -> bool:
     """Create admin user via API registration endpoint."""
     url = f"{API_BASE_URL}{API_ENDPOINTS['register']}"
     
-    data = {
+    # The API expects query parameters, not JSON body
+    params = {
         "username": username,
         "email": email,
         "password": password
     }
     
     try:
-        response = requests.post(url, json=data, headers=HEADERS, verify=False, timeout=10)
+        response = requests.post(url, params=params, headers=HEADERS, verify=False, timeout=10)
         
         if response.status_code == 200:
             result = response.json()
@@ -125,13 +126,14 @@ def login_and_verify_admin(username: str, password: str) -> bool:
     """Login and verify admin privileges."""
     url = f"{API_BASE_URL}{API_ENDPOINTS['login']}"
     
+    # Use form data for login (OAuth2PasswordRequestForm)
     data = {
         "username": username,
         "password": password
     }
     
     try:
-        response = requests.post(url, json=data, headers=HEADERS, verify=False, timeout=10)
+        response = requests.post(url, data=data, headers=HEADERS, verify=False, timeout=10)
         
         if response.status_code == 200:
             result = response.json()
