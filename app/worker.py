@@ -33,9 +33,8 @@ async def consume():
     redis_client = redis.from_url(settings.REDIS_URL, decode_responses=True)
     
     async with Client(settings.MQTT_BROKER, port=settings.MQTT_PORT) as client:
-        async with client.messages() as messages:
-            await client.subscribe("iot/+/+")
-            async for message in messages:
+        await client.subscribe("iot/+/+")
+        async for message in client.messages:
                 try:
                     # Parse topic: iot/{tenant}/{device_id}
                     topic_parts = message.topic.value.split("/")
@@ -75,7 +74,7 @@ async def consume():
                                 id=device_id,
                                 name=f"Device-{device_id[:8]}",
                                 tenant_id=tenant.id,
-                                status="active"
+                                is_active=True
                             )
                             session.add(device)
                             await session.commit()
