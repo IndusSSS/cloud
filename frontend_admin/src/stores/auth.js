@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE_URL = import.meta.env.VITE_API_URL || ''
 
 export const useAuthStore = defineStore('auth', () => {
   // State
@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
     
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/login-json`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,13 +35,17 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       // Verify user is system admin
-      if (!data.user.is_admin) {
+      if (!data.is_admin) {
         throw new Error('Access denied. System admin privileges required.')
       }
 
       // Store token and user data
       token.value = data.access_token
-      user.value = data.user
+      user.value = {
+        id: data.user_id,
+        username: data.username,
+        is_admin: data.is_admin
+      }
       localStorage.setItem('admin_token', data.access_token)
 
       return data
