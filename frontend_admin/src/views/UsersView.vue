@@ -135,57 +135,35 @@
             <div class="space-y-4">
               <div>
                 <label class="form-label">Username</label>
-                <input
-                  v-model="newUser.username"
-                  type="text"
-                  required
-                  class="form-input"
-                />
+                <input v-model="newUser.username" type="text" required class="form-input" />
               </div>
               <div>
                 <label class="form-label">Email</label>
-                <input
-                  v-model="newUser.email"
-                  type="email"
-                  required
-                  class="form-input"
-                />
+                <input v-model="newUser.email" type="email" required class="form-input" />
               </div>
               <div>
                 <label class="form-label">Password</label>
-                <input
-                  v-model="newUser.password"
-                  type="password"
-                  required
-                  class="form-input"
-                />
+                <input v-model="newUser.password" type="password" required class="form-input" />
+              </div>
+              <div>
+                <label class="form-label">Tenant</label>
+                <select v-model="newUser.tenant_id" required class="form-input">
+                  <option value="" disabled>Select tenant</option>
+                  <option v-for="tenant in tenants" :key="tenant.id" :value="tenant.id">
+                    {{ tenant.name }}
+                  </option>
+                </select>
+                <div v-if="tenantsLoading" class="text-xs text-gray-500 mt-1">Loading tenants...</div>
+                <div v-if="tenantsError" class="text-xs text-red-500 mt-1">{{ tenantsError }}</div>
               </div>
               <div class="flex items-center">
-                <input
-                  v-model="newUser.is_admin"
-                  type="checkbox"
-                  class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label class="ml-2 block text-sm text-gray-900">
-                  Admin privileges
-                </label>
+                <input v-model="newUser.is_admin" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+                <label class="ml-2 block text-sm text-gray-900">Admin privileges</label>
               </div>
             </div>
             <div class="flex justify-end space-x-3 mt-6">
-              <button
-                type="button"
-                @click="showCreateModal = false"
-                class="btn-secondary"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                :disabled="creating"
-                class="btn-primary"
-              >
-                {{ creating ? 'Creating...' : 'Create User' }}
-              </button>
+              <button type="button" @click="showCreateModal = false" class="btn-secondary">Cancel</button>
+              <button type="submit" :disabled="creating" class="btn-primary">{{ creating ? 'Creating...' : 'Create User' }}</button>
             </div>
           </form>
         </div>
@@ -213,8 +191,12 @@ export default {
       username: '',
       email: '',
       password: '',
-      is_admin: false
+      is_admin: false,
+      tenant_id: ''
     })
+    const tenants = ref([])
+    const tenantsLoading = ref(false)
+    const tenantsError = ref(null)
 
     const fetchUsers = async () => {
       try {
@@ -245,6 +227,11 @@ export default {
     const createUser = async () => {
       try {
         creating.value = true
+        if (!newUser.value.tenant_id) {
+          error.value = 'Tenant is required.'
+          creating.value = false
+          return
+        }
         
         const response = await fetch(`${API_BASE_URL}/api/v1/admin/users`, {
           method: 'POST',
@@ -265,7 +252,8 @@ export default {
           username: '',
           email: '',
           password: '',
-          is_admin: false
+          is_admin: false,
+          tenant_id: ''
         }
         showCreateModal.value = false
         
@@ -314,8 +302,31 @@ export default {
       return new Date(dateString).toLocaleDateString()
     }
 
+    const fetchTenants = async () => {
+      try {
+        tenantsLoading.value = true
+        tenantsError.value = null
+        const response = await fetch(`${API_BASE_URL}/api/v1/admin/tenants`, {
+          headers: {
+            'Authorization': `Bearer ${authStore.token}`,
+            'Content-Type': 'application/json',
+          },
+        })
+        if (!response.ok) {
+          throw new Error('Failed to fetch tenants')
+        }
+        tenants.value = await response.json()
+      } catch (err) {
+        tenantsError.value = err.message
+        console.error('Error fetching tenants:', err)
+      } finally {
+        tenantsLoading.value = false
+      }
+    }
+
     onMounted(() => {
       fetchUsers()
+      fetchTenants()
     })
 
     return {
@@ -329,7 +340,10 @@ export default {
       createUser,
       editUser,
       deleteUser,
-      formatDate
+      formatDate,
+      tenants,
+      tenantsLoading,
+      tenantsError
     }
   }
 }
