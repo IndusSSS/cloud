@@ -6,7 +6,7 @@ Version 1 of the REST API endpoints.
 """
 
 from fastapi import APIRouter
-from .endpoints import auth, users, devices, ingest, tenants, audit, ws, users_admin, devices_admin, ota, admin_console
+from .endpoints import auth, users, devices, ingest, tenants, audit, ws, users_admin, devices_admin, ota, admin_console, admin_enhanced
 
 api_router = APIRouter()
 
@@ -26,3 +26,4 @@ api_router.include_router(devices_admin.router, prefix="/admin/devices", tags=["
 api_router.include_router(audit.router, prefix="/admin/audit", tags=["admin-audit"])
 api_router.include_router(ota.router, prefix="/admin/ota", tags=["admin-ota"])
 api_router.include_router(admin_console.router, prefix="/admin", tags=["admin-console"])
+api_router.include_router(admin_enhanced.router, prefix="/admin", tags=["admin-enhanced"])

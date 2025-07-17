@@ -98,12 +98,13 @@ class AdminUserRepository:
         if existing_username.scalar_one_or_none():
             raise ValueError("Username already exists")
         
-        # Check for existing email
-        existing_email = await self.session.execute(
-            select(User).where(User.email == user_data.email)
-        )
-        if existing_email.scalar_one_or_none():
-            raise ValueError("Email already exists")
+        # Check for existing email (only if email is provided)
+        if user_data.email:
+            existing_email = await self.session.execute(
+                select(User).where(User.email == user_data.email)
+            )
+            if existing_email.scalar_one_or_none():
+                raise ValueError("Email already exists")
         
         # Create user
         hashed_password = get_password_hash(user_data.password)

@@ -29,7 +29,7 @@ class UserRole(str, Enum):
 class UserCreate(BaseModel):
     """Schema for creating a new user."""
     username: str = Field(..., min_length=3, max_length=50, description="Unique username")
-    email: EmailStr = Field(..., description="Valid email address")
+    email: Optional[EmailStr] = Field(None, description="Valid email address (auto-generated if not provided)")
     password: str = Field(..., min_length=8, description="Secure password")
     is_admin: bool = Field(default=False, description="Admin privileges")
     tenant_id: Optional[str] = Field(None, description="Tenant ID (system admin only)")
@@ -39,6 +39,13 @@ class UserCreate(BaseModel):
         if not v.isalnum() and not all(c in '._-' for c in v if not c.isalnum()):
             raise ValueError('Username must be alphanumeric with allowed special characters')
         return v.lower()
+    
+    @validator('email', pre=True, always=True)
+    def generate_email_if_missing(cls, v, values):
+        """Generate email from username if not provided."""
+        if v is None and 'username' in values:
+            return f"{values['username']}@smartsecurity.local"
+        return v
 
 
 class UserUpdate(BaseModel):
