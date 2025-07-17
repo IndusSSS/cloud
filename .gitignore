@@ -32,4 +32,5 @@ https_test_report.txt
 
 # Temporary files
 *.tmp
-*.temp
+*.temp__pycache__/
+*.pyc
