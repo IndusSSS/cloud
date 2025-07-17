@@ -176,7 +176,7 @@
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '../stores/auth'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE_URL = import.meta.env.VITE_API_URL || ''
 
 export default {
   name: 'UsersView',
@@ -203,7 +203,7 @@ export default {
         loading.value = true
         error.value = null
         
-        const response = await fetch(`${API_BASE_URL}/api/v1/admin/users`, {
+        const response = await fetch(`/api/v1/admin/users`, {
           headers: {
             'Authorization': `Bearer ${authStore.token}`,
             'Content-Type': 'application/json',
@@ -211,7 +211,9 @@ export default {
         })
 
         if (!response.ok) {
-          throw new Error('Failed to fetch users')
+          const errorText = await response.text()
+          console.error('Fetch users error response:', response.status, errorText)
+          throw new Error(`Failed to fetch users: ${response.status}`)
         }
 
         const data = await response.json()
@@ -233,7 +235,9 @@ export default {
           return
         }
         
-        const response = await fetch(`${API_BASE_URL}/api/v1/admin/users`, {
+        console.log('Creating user with data:', newUser.value)
+        
+        const response = await fetch(`/api/v1/admin/users`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${authStore.token}`,
@@ -242,10 +246,16 @@ export default {
           body: JSON.stringify(newUser.value),
         })
 
+        console.log('Create user response status:', response.status)
+        
         if (!response.ok) {
           const errorData = await response.json()
-          throw new Error(errorData.detail || 'Failed to create user')
+          console.error('Create user error response:', errorData)
+          throw new Error(errorData.detail || `Failed to create user: ${response.status}`)
         }
+
+        const result = await response.json()
+        console.log('User created successfully:', result)
 
         // Reset form and close modal
         newUser.value = {
@@ -278,7 +288,7 @@ export default {
       }
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/v1/admin/users/${userId}`, {
+        const response = await fetch(`/api/v1/admin/users/${userId}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${authStore.token}`,
@@ -306,16 +316,19 @@ export default {
       try {
         tenantsLoading.value = true
         tenantsError.value = null
-        const response = await fetch(`${API_BASE_URL}/api/v1/admin/tenants`, {
+        const response = await fetch(`/api/v1/admin/tenants`, {
           headers: {
             'Authorization': `Bearer ${authStore.token}`,
             'Content-Type': 'application/json',
           },
         })
         if (!response.ok) {
-          throw new Error('Failed to fetch tenants')
+          const errorText = await response.text()
+          console.error('Fetch tenants error response:', response.status, errorText)
+          throw new Error(`Failed to fetch tenants: ${response.status}`)
         }
         tenants.value = await response.json()
+        console.log('Tenants loaded:', tenants.value)
       } catch (err) {
         tenantsError.value = err.message
         console.error('Error fetching tenants:', err)

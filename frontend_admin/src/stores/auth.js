@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = null
     
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/auth/login-json`, {
+      const response = await fetch(`/api/v1/auth/login-json`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const validateToken = async (tokenToValidate) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/auth/me`, {
+      const response = await fetch(`/api/v1/auth/me`, {
         headers: {
           'Authorization': `Bearer ${tokenToValidate}`,
         },
